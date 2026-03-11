@@ -1,3 +1,5 @@
+[English](README.md) | [中文](README_zh.md)
+
 # lif2tiff
 
 Convert Leica `.lif` confocal microscopy files to per-channel TIFF images with full metadata extraction.
