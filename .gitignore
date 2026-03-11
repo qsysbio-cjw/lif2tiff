@@ -1,0 +1,18 @@
+# Build artifacts
+build/
+dist/
+*.spec
+__pycache__/
+*.py[cod]
+
+# Output data (potentially large)
+output/
+
+# Environment
+env/
+.env/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
