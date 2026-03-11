@@ -1,21 +1,16 @@
 @echo off
 REM Build LIF2TIFF standalone executable for Windows
-REM Requirements: Python 3.11, conda/miniconda installed
-REM
-REM Usage:
-REM   1. Copy lif2tiff.py and gui_app.py to Windows machine
-REM   2. Open Command Prompt or PowerShell
-REM   3. Run: build_app_windows.bat
+REM Requirements: Miniconda or Anaconda installed
+REM Run from the directory containing lif2tiff.py and gui_app.py
 
 echo Creating conda environment...
 call conda create -n lif2tiff python=3.11 -y
-call conda activate lif2tiff
 
 echo Installing dependencies...
-pip install readlif tifffile numpy imagecodecs customtkinter pyinstaller
+call conda run -n lif2tiff pip install readlif tifffile numpy imagecodecs customtkinter pyinstaller
 
 echo Building executable...
-pyinstaller --onefile --windowed ^
+call conda run -n lif2tiff pyinstaller --onefile --windowed ^
   --name "LIF2TIFF" ^
   --hidden-import customtkinter ^
   --hidden-import readlif ^
