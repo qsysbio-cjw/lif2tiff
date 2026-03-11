@@ -397,6 +397,34 @@ def export_series(image, output_dir, metadata, dry_run=False, channels_filter=No
             logger.info("  Exported: C%d_%s, %d timepoints x %d Z-slices", c, label, n_t, n_z)
 
 
+def _apply_lut(gray_path, label):
+    """Apply color LUT to a grayscale uint8 TIFF, return RGB uint8 array or None."""
+    LUT_RGB = {
+        "green":   (0, 1, 0),
+        "red":     (1, 0, 0),
+        "blue":    (0, 0, 1),
+        "cyan":    (0, 1, 1),
+        "magenta": (1, 0, 1),
+        "yellow":  (1, 1, 0),
+    }
+    coeff = LUT_RGB.get(label)
+    if coeff is None:
+        return None
+
+    with tifffile.TiffFile(gray_path) as tif:
+        img = tif.asarray()
+
+    if img.dtype != np.uint8:
+        logger.warning("  LUT skipped for %s: only uint8 supported (got %s)", gray_path.name, img.dtype)
+        return None
+
+    rgb = np.zeros((*img.shape, 3), dtype=np.uint8)
+    for i, c in enumerate(coeff):
+        if c:
+            rgb[..., i] = img
+    return rgb
+
+
 def build_by_channel(lif_dir, dry_run=False):
     """Copy exported files into by_channel/ subdirectory grouped by channel/metadata."""
     by_channel_dir = lif_dir / "by_channel"
@@ -424,6 +452,14 @@ def build_by_channel(lif_dir, dry_run=False):
             if not dry_run:
                 os.makedirs(dest_dir, exist_ok=True)
                 shutil.copy2(f, dest_dir / f.name)
+
+                # Extra LUT-colourised copy for fluorescence channels
+                if f.suffix == ".tif" and label not in ("brightfield", "unknown"):
+                    rgb = _apply_lut(f, label)
+                    if rgb is not None:
+                        lut_dir = by_channel_dir / f"{label}_lut"
+                        os.makedirs(lut_dir, exist_ok=True)
+                        tifffile.imwrite(str(lut_dir / f.name), rgb, compression="lzw")
 
     if not dry_run:
         logger.info("  by_channel/: organized into %s",
