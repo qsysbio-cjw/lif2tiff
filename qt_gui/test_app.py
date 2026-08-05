@@ -297,7 +297,9 @@ class QtPreviewSchedulingTests(unittest.TestCase):
                 "new presentation",
             )
             try:
-                self.assertEqual(dialog.output_path(), parent / "new presentation")
+                self.assertEqual(
+                    dialog.output_path(), (parent / "new presentation").resolve()
+                )
                 dialog._accept_if_valid()
                 self.assertEqual(dialog.result(), dialog.DialogCode.Accepted)
                 self.assertFalse(dialog.output_path().exists())

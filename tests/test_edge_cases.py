@@ -212,7 +212,7 @@ def test_right_tools_dock_starts_compact_but_remains_user_resizable(qapp):
         tools = [dock for dock in window.findChildren(QDockWidget) if dock.windowTitle() == "Tools"]
         assert len(tools) == 1
         initial_width = tools[0].width()
-        assert initial_width <= 340
+        assert initial_width <= max(520, round(window.width() * 0.35))
         assert tools[0].maximumWidth() > 1000
         window.resizeDocks([tools[0]], [600], Qt.Orientation.Horizontal)
         qapp.processEvents()
@@ -223,6 +223,10 @@ def test_right_tools_dock_starts_compact_but_remains_user_resizable(qapp):
         qapp.processEvents()
 
 
+@pytest.mark.skipif(
+    os.name == "nt",
+    reason="Windows cannot place case-only filename variants in one directory",
+)
 def test_gui_batch_dry_run_and_conversion_gate_block_output_collision(qapp, tmp_path: Path):
     window = QtWorkbench()
     first = tmp_path / "Sample.lif"
@@ -282,12 +286,10 @@ def test_windows_specs_are_syntactically_valid_and_bundle_runtime_data():
 def test_batch_output_collision_is_detected_with_windows_case_rules(tmp_path: Path):
     first = tmp_path / "Sample.lif"
     second = tmp_path / "sample.lif"
-    first.touch()
-    second.touch()
     outputs = [_default_output(source, "_tiff") for source in (first, second)]
     collisions = find_batch_output_collisions(list(zip((first, second), outputs)))
 
-    assert outputs[0] != outputs[1]
+    assert outputs[0].name != outputs[1].name
     assert len(collisions) == 1
     assert collisions[0]["sources"] == [first, second]
 

@@ -149,6 +149,12 @@ class TiffProjectAdapter:
     def close(self) -> None:
         self._handle_cache.close()
 
+    def __enter__(self) -> "TiffProjectAdapter":
+        return self
+
+    def __exit__(self, _exc_type, _exc, _traceback) -> None:
+        self.close()
+
 
 def load_tiff_project_plan(path: Path) -> tuple[dict, dict]:
     project = project_directory(path)

@@ -115,7 +115,7 @@ class LifToolConversionTests(unittest.TestCase):
             lif_factory=fake_factory(images),
         )
 
-        self.assertEqual(result, output)
+        self.assertEqual(result, output.resolve())
         manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["project_status"], "complete")
         self.assertEqual(len(manifest["source"]["file_sha256"]), 64)
@@ -368,7 +368,7 @@ class LifToolConversionTests(unittest.TestCase):
             lif_factory=fake_factory([resumed_image]),
         )
 
-        self.assertEqual(result, output)
+        self.assertEqual(result, output.resolve())
         self.assertFalse(partial.exists())
         self.assertTrue(validate_project(output)["ok"])
         self.assertLess(resumed_image.frame_calls, 6)

@@ -148,15 +148,15 @@ class ConvertedProjectAdapterTests(unittest.TestCase):
 
     def test_project_limits_open_tiff_handles(self):
         with tempfile.TemporaryDirectory() as temporary:
-            adapter = TiffProjectAdapter(build_project(Path(temporary)))
-            adapter._handle_cache.max_open = 1
+            with TiffProjectAdapter(build_project(Path(temporary))) as adapter:
+                adapter._handle_cache.max_open = 1
 
-            adapter.images[0].get_frame(z=0, t=0, c=0)
-            first = next(iter(adapter._handle_cache._files.values()))
-            adapter.images[0].get_frame(z=0, t=0, c=1)
+                adapter.images[0].get_frame(z=0, t=0, c=0)
+                first = next(iter(adapter._handle_cache._files.values()))
+                adapter.images[0].get_frame(z=0, t=0, c=1)
 
-            self.assertTrue(first.filehandle.closed)
-            self.assertEqual(adapter.open_tiff_count, 1)
+                self.assertTrue(first.filehandle.closed)
+                self.assertEqual(adapter.open_tiff_count, 1)
 
     def test_project_rejects_path_escape_and_incomplete_status(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -178,23 +178,23 @@ class PresentationExportTests(unittest.TestCase):
     def test_batch_overlay_is_portable_and_records_exact_render_recipe(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            adapter = TiffProjectAdapter(build_project(root))
-            output = root / "presentation"
-            current = {
-                (0, 0): {"black": 1.0, "white": 50.0, "gamma": 1.2},
-                (0, 1): {"black": 2.0, "white": 80.0, "gamma": 0.8},
-            }
+            with TiffProjectAdapter(build_project(root)) as adapter:
+                output = root / "presentation"
+                current = {
+                    (0, 0): {"black": 1.0, "white": 50.0, "gamma": 1.2},
+                    (0, 1): {"black": 2.0, "white": 80.0, "gamma": 0.8},
+                }
 
-            result = export_presentations(
-                adapter=adapter,
-                plan=adapter.plan,
-                output=output,
-                channels=[0, 1],
-                scope="all_series_first_plane",
-                contrast_mode="current_adjusted",
-                use_lut=True,
-                current_states=current,
-            )
+                result = export_presentations(
+                    adapter=adapter,
+                    plan=adapter.plan,
+                    output=output,
+                    channels=[0, 1],
+                    scope="all_series_first_plane",
+                    contrast_mode="current_adjusted",
+                    use_lut=True,
+                    current_states=current,
+                )
 
             pngs = sorted(result.glob("*.png"))
             self.assertEqual(len(pngs), 2)
@@ -210,11 +210,34 @@ class PresentationExportTests(unittest.TestCase):
     def test_counts_planes_and_refuses_overwrite(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            adapter = TiffProjectAdapter(build_project(root))
-            self.assertEqual(presentation_frame_count(adapter.plan, "all_planes", [1]), 5)
-            output = root / "presentation"
-            output.mkdir()
-            with self.assertRaisesRegex(PresentationExportError, "refusing to overwrite"):
+            with TiffProjectAdapter(build_project(root)) as adapter:
+                self.assertEqual(
+                    presentation_frame_count(adapter.plan, "all_planes", [1]), 5
+                )
+                output = root / "presentation"
+                output.mkdir()
+                with self.assertRaisesRegex(
+                    PresentationExportError, "refusing to overwrite"
+                ):
+                    export_presentations(
+                        adapter=adapter,
+                        plan=adapter.plan,
+                        output=output,
+                        channels=[1],
+                        scope="current_frame",
+                        contrast_mode="source_display",
+                        use_lut=True,
+                        current_frame=(0, 0, 0),
+                    )
+
+    def test_export_creates_a_new_folder_below_nested_parent(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            with TiffProjectAdapter(build_project(root)) as adapter:
+                parent = root / "nested" / "report outputs"
+                parent.mkdir(parents=True)
+                output = parent / "new presentation"
+
                 export_presentations(
                     adapter=adapter,
                     plan=adapter.plan,
@@ -226,43 +249,24 @@ class PresentationExportTests(unittest.TestCase):
                     current_frame=(0, 0, 0),
                 )
 
-    def test_export_creates_a_new_folder_below_nested_parent(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            adapter = TiffProjectAdapter(build_project(root))
-            parent = root / "nested" / "report outputs"
-            parent.mkdir(parents=True)
-            output = parent / "new presentation"
-
-            export_presentations(
-                adapter=adapter,
-                plan=adapter.plan,
-                output=output,
-                channels=[1],
-                scope="current_frame",
-                contrast_mode="source_display",
-                use_lut=True,
-                current_frame=(0, 0, 0),
-            )
-
             self.assertTrue((output / "presentation_recipe.json").is_file())
             self.assertEqual(len(list(output.glob("*.png"))), 1)
 
     def test_missing_selected_channel_is_reported(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            adapter = TiffProjectAdapter(build_project(root))
-            with self.assertRaisesRegex(PresentationExportError, "not present"):
-                export_presentations(
-                    adapter=adapter,
-                    plan=adapter.plan,
-                    output=root / "presentation",
-                    channels=[99],
-                    scope="current_frame",
-                    contrast_mode="source_display",
-                    use_lut=True,
-                    current_frame=(0, 0, 0),
-                )
+            with TiffProjectAdapter(build_project(root)) as adapter:
+                with self.assertRaisesRegex(PresentationExportError, "not present"):
+                    export_presentations(
+                        adapter=adapter,
+                        plan=adapter.plan,
+                        output=root / "presentation",
+                        channels=[99],
+                        scope="current_frame",
+                        contrast_mode="source_display",
+                        use_lut=True,
+                        current_frame=(0, 0, 0),
+                    )
 
 
 if __name__ == "__main__":
