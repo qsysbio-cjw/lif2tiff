@@ -1,0 +1,146 @@
+{
+  "schema_name": "candida_lif_workflow_review",
+  "schema_version": "0.1",
+  "route": "review",
+  "status": "review_required",
+  "reason_codes": [
+    "unknown_modality"
+  ],
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "unknown_modality",
+      "channel_key": "C00",
+      "message": "C00 modality cannot be resolved"
+    },
+    {
+      "severity": "warning",
+      "code": "unknown_modality",
+      "channel_key": "C01",
+      "message": "C01 modality cannot be resolved"
+    }
+  ],
+  "comparison_policy": {
+    "reference_group": "most frequent acquisition protocol; not a correctness claim",
+    "optical_tolerance_nm": 0.5,
+    "optical_rule": "combined max-min must be <= tolerance",
+    "informational_fields": [
+      "gain",
+      "offset",
+      "excitation_intensities_percent"
+    ]
+  },
+  "reference_group_id": "RG-001",
+  "variant_group_ids": [],
+  "groups": [
+    {
+      "group_id": "RG-001",
+      "role": "reference",
+      "series_count": 4,
+      "series": [
+        {
+          "series_index": 0,
+          "series_name": "TileScan_001 [M000]"
+        },
+        {
+          "series_index": 1,
+          "series_name": "TileScan_001 [M001]"
+        },
+        {
+          "series_index": 2,
+          "series_name": "TileScan_001 [M002]"
+        },
+        {
+          "series_index": 3,
+          "series_name": "TileScan_001 [M003]"
+        }
+      ],
+      "channel_count": 2,
+      "channel_keys": [
+        "C00",
+        "C01"
+      ],
+      "channels": [
+        {
+          "channel_key": "C00",
+          "modality": "unknown",
+          "detector": {
+            "name": "",
+            "type": "",
+            "scan_type": ""
+          },
+          "optical": {
+            "excitation_wavelengths_nm": {
+              "representative": [],
+              "min": [],
+              "max": []
+            },
+            "emission_window_begin_nm": {
+              "representative": null,
+              "min": null,
+              "max": null
+            },
+            "emission_window_end_nm": {
+              "representative": null,
+              "min": null,
+              "max": null
+            }
+          }
+        },
+        {
+          "channel_key": "C01",
+          "modality": "unknown",
+          "detector": {
+            "name": "",
+            "type": "",
+            "scan_type": ""
+          },
+          "optical": {
+            "excitation_wavelengths_nm": {
+              "representative": [],
+              "min": [],
+              "max": []
+            },
+            "emission_window_begin_nm": {
+              "representative": null,
+              "min": null,
+              "max": null
+            },
+            "emission_window_end_nm": {
+              "representative": null,
+              "min": null,
+              "max": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "review_differences": [
+    {
+      "category": "detector_modality",
+      "code": "unknown_modality",
+      "channel_key": "C00",
+      "field": "modality",
+      "group_id": "RG-001"
+    },
+    {
+      "category": "detector_modality",
+      "code": "unknown_modality",
+      "channel_key": "C01",
+      "field": "modality",
+      "group_id": "RG-001"
+    }
+  ],
+  "informational_variations": [],
+  "decision": {
+    "status": "accepted",
+    "action": "continue_all",
+    "source": "explicit_override",
+    "accepted_reason_codes": [
+      "unknown_modality"
+    ],
+    "reviewed_variant_group_ids": [],
+    "note": null
+  }
+}

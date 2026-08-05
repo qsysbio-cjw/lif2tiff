@@ -1,0 +1,99 @@
+{
+  "audit": "metadata-only production preflight",
+  "pixel_data_read": false,
+  "source_count": 4,
+  "repeat": 1,
+  "run_count": 4,
+  "success_count": 4,
+  "failure_count": 0,
+  "elapsed_seconds": 0.038167,
+  "fd_before": 4,
+  "fd_after": 4,
+  "max_rss_kib_before": 79304,
+  "max_rss_kib_after": 82072,
+  "suggested_output_collisions": [
+    {
+      "source_parent": "output_collision",
+      "suggested_directory_name": "sample_tiff",
+      "count": 2,
+      "sources": [
+        "sample.lif",
+        "Sample.lif"
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "source": "A B.lif",
+      "source_parent": "output_collision",
+      "size_bytes": 227429,
+      "seconds": 0.012213,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "A B_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "A_B.lif",
+      "source_parent": "output_collision",
+      "size_bytes": 227429,
+      "seconds": 0.010256,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "A_B_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "sample.lif",
+      "source_parent": "output_collision",
+      "size_bytes": 227429,
+      "seconds": 0.00798,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "sample_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "Sample.lif",
+      "source_parent": "output_collision",
+      "size_bytes": 227429,
+      "seconds": 0.007307,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "Sample_tiff",
+      "repeat": 1
+    }
+  ]
+}

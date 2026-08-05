@@ -1,0 +1,887 @@
+{
+  "schema_name": "candida_lif_metadata_bundle",
+  "schema_version": "0.2",
+  "created_at": "2026-08-03T16:49:38+00:00",
+  "source_lif": "PR2729_frameOrderCombinedScanTypes.lif",
+  "source_lif_name": "PR2729_frameOrderCombinedScanTypes.lif",
+  "source_lif_size_bytes": 227429,
+  "series_count": 4,
+  "series": [
+    {
+      "source_file": "PR2729_frameOrderCombinedScanTypes.lif",
+      "series_name": "TileScan_001 [M000]",
+      "series_index": 0,
+      "source_series_index": 0,
+      "mosaic_index": 0,
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "bit_depth_per_channel": [
+        8,
+        8
+      ],
+      "channel_info": [
+        {
+          "index": 0,
+          "label": "green",
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Green",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        },
+        {
+          "index": 1,
+          "label": "red",
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Red",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        }
+      ],
+      "objective": {
+        "name": "C PLAN  10.0x0.22 POL",
+        "magnification": 10,
+        "numerical_aperture": 0.22,
+        "immersion": "DRY"
+      },
+      "confocal_settings": {
+        "scan_mode": "xyzt",
+        "line_averaging": 1,
+        "frame_averaging": 1,
+        "pinhole_um": 100.0,
+        "pinhole_airy": 0.690911374913636,
+        "zoom": 4.0,
+        "scan_speed": 400,
+        "scan_direction": "Unidirectional",
+        "pixel_dwell_time_us": 11.53
+      },
+      "microscope": {
+        "model": "",
+        "serial": "SIMULATOR SP"
+      },
+      "stage_position": {
+        "x_m": 5.359375e-05,
+        "y_m": 0.00015359375,
+        "z_m": -2.03516769781777e-08
+      },
+      "laser_settings": [
+        {
+          "wavelength_nm": 351.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 364.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 458.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 476.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 488.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 501.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 514.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 520.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 568.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 647.0,
+          "intensity_percent": 0.0
+        }
+      ],
+      "acquisition_timestamps": [
+        "2017-01-30T07:56:07.817Z",
+        "2017-01-30T07:56:07.817Z",
+        "2017-01-30T07:56:07.817Z",
+        "2017-01-30T07:56:07.817Z",
+        "2017-01-30T07:56:07.818Z",
+        "2017-01-30T07:56:07.818Z",
+        "2017-01-30T07:56:16.088Z",
+        "2017-01-30T07:56:16.088Z",
+        "2017-01-30T07:56:16.089Z",
+        "2017-01-30T07:56:16.089Z",
+        "2017-01-30T07:56:16.089Z",
+        "2017-01-30T07:56:16.089Z"
+      ],
+      "time_points_s": [
+        0.0,
+        8.271
+      ],
+      "optical_settings": {
+        "refraction_index": 1.0,
+        "tld_mode": "",
+        "emission_wavelength_for_pinhole_airy_nm": 580.0
+      }
+    },
+    {
+      "source_file": "PR2729_frameOrderCombinedScanTypes.lif",
+      "series_name": "TileScan_001 [M001]",
+      "series_index": 1,
+      "source_series_index": 0,
+      "mosaic_index": 1,
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "bit_depth_per_channel": [
+        8,
+        8
+      ],
+      "channel_info": [
+        {
+          "index": 0,
+          "label": "green",
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Green",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        },
+        {
+          "index": 1,
+          "label": "red",
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Red",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        }
+      ],
+      "objective": {
+        "name": "C PLAN  10.0x0.22 POL",
+        "magnification": 10,
+        "numerical_aperture": 0.22,
+        "immersion": "DRY"
+      },
+      "confocal_settings": {
+        "scan_mode": "xyzt",
+        "line_averaging": 1,
+        "frame_averaging": 1,
+        "pinhole_um": 100.0,
+        "pinhole_airy": 0.690911374913636,
+        "zoom": 4.0,
+        "scan_speed": 400,
+        "scan_direction": "Unidirectional",
+        "pixel_dwell_time_us": 11.53
+      },
+      "microscope": {
+        "model": "",
+        "serial": "SIMULATOR SP"
+      },
+      "stage_position": {
+        "x_m": 5.359375e-05,
+        "y_m": 0.00028640625,
+        "z_m": -2.03516769781777e-08
+      },
+      "laser_settings": [
+        {
+          "wavelength_nm": 351.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 364.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 458.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 476.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 488.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 501.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 514.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 520.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 568.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 647.0,
+          "intensity_percent": 0.0
+        }
+      ],
+      "acquisition_timestamps": [
+        "2017-01-30T07:56:07.818Z",
+        "2017-01-30T07:56:07.818Z",
+        "2017-01-30T07:56:07.818Z",
+        "2017-01-30T07:56:07.818Z",
+        "2017-01-30T07:56:07.819Z",
+        "2017-01-30T07:56:07.819Z",
+        "2017-01-30T07:56:16.091Z",
+        "2017-01-30T07:56:16.091Z",
+        "2017-01-30T07:56:16.092Z",
+        "2017-01-30T07:56:16.092Z",
+        "2017-01-30T07:56:16.092Z",
+        "2017-01-30T07:56:16.092Z"
+      ],
+      "time_points_s": [
+        0.0,
+        8.271
+      ],
+      "optical_settings": {
+        "refraction_index": 1.0,
+        "tld_mode": "",
+        "emission_wavelength_for_pinhole_airy_nm": 580.0
+      }
+    },
+    {
+      "source_file": "PR2729_frameOrderCombinedScanTypes.lif",
+      "series_name": "TileScan_001 [M002]",
+      "series_index": 2,
+      "source_series_index": 0,
+      "mosaic_index": 2,
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "bit_depth_per_channel": [
+        8,
+        8
+      ],
+      "channel_info": [
+        {
+          "index": 0,
+          "label": "green",
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Green",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        },
+        {
+          "index": 1,
+          "label": "red",
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Red",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        }
+      ],
+      "objective": {
+        "name": "C PLAN  10.0x0.22 POL",
+        "magnification": 10,
+        "numerical_aperture": 0.22,
+        "immersion": "DRY"
+      },
+      "confocal_settings": {
+        "scan_mode": "xyzt",
+        "line_averaging": 1,
+        "frame_averaging": 1,
+        "pinhole_um": 100.0,
+        "pinhole_airy": 0.690911374913636,
+        "zoom": 4.0,
+        "scan_speed": 400,
+        "scan_direction": "Unidirectional",
+        "pixel_dwell_time_us": 11.53
+      },
+      "microscope": {
+        "model": "",
+        "serial": "SIMULATOR SP"
+      },
+      "stage_position": {
+        "x_m": 0.00018640625,
+        "y_m": 0.00015359375,
+        "z_m": -2.03516769781777e-08
+      },
+      "laser_settings": [
+        {
+          "wavelength_nm": 351.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 364.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 458.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 476.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 488.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 501.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 514.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 520.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 568.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 647.0,
+          "intensity_percent": 0.0
+        }
+      ],
+      "acquisition_timestamps": [
+        "2017-01-30T07:56:07.819Z",
+        "2017-01-30T07:56:07.819Z",
+        "2017-01-30T07:56:07.819Z",
+        "2017-01-30T07:56:07.819Z",
+        "2017-01-30T07:56:07.820Z",
+        "2017-01-30T07:56:07.820Z",
+        "2017-01-30T07:56:16.094Z",
+        "2017-01-30T07:56:16.094Z",
+        "2017-01-30T07:56:16.094Z",
+        "2017-01-30T07:56:16.094Z",
+        "2017-01-30T07:56:16.095Z",
+        "2017-01-30T07:56:16.095Z"
+      ],
+      "time_points_s": [
+        0.0,
+        8.271
+      ],
+      "optical_settings": {
+        "refraction_index": 1.0,
+        "tld_mode": "",
+        "emission_wavelength_for_pinhole_airy_nm": 580.0
+      }
+    },
+    {
+      "source_file": "PR2729_frameOrderCombinedScanTypes.lif",
+      "series_name": "TileScan_001 [M003]",
+      "series_index": 3,
+      "source_series_index": 0,
+      "mosaic_index": 3,
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "bit_depth_per_channel": [
+        8,
+        8
+      ],
+      "channel_info": [
+        {
+          "index": 0,
+          "label": "green",
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Green",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        },
+        {
+          "index": 1,
+          "label": "red",
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "lut": "Red",
+          "bit_depth": 8,
+          "source_display_settings": {
+            "value_min": 0.0,
+            "value_max": 255.0,
+            "black": 0.0,
+            "white": 255.0,
+            "gamma": 1.0,
+            "black_fraction": 0.0,
+            "white_fraction": 1.0,
+            "source": "leica_channel_scaling"
+          },
+          "detector_name": null,
+          "detector_type": null,
+          "scan_type": null,
+          "gain": null,
+          "offset": null,
+          "detection_range_begin_nm": null,
+          "detection_range_end_nm": null,
+          "acquisition_mode": null,
+          "dye_name": null,
+          "sequential_index": null,
+          "sequential_setting_name": null,
+          "excitation_settings": [],
+          "emission_window_begin_nm": null,
+          "emission_window_end_nm": null,
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          }
+        }
+      ],
+      "objective": {
+        "name": "C PLAN  10.0x0.22 POL",
+        "magnification": 10,
+        "numerical_aperture": 0.22,
+        "immersion": "DRY"
+      },
+      "confocal_settings": {
+        "scan_mode": "xyzt",
+        "line_averaging": 1,
+        "frame_averaging": 1,
+        "pinhole_um": 100.0,
+        "pinhole_airy": 0.690911374913636,
+        "zoom": 4.0,
+        "scan_speed": 400,
+        "scan_direction": "Unidirectional",
+        "pixel_dwell_time_us": 11.53
+      },
+      "microscope": {
+        "model": "",
+        "serial": "SIMULATOR SP"
+      },
+      "stage_position": {
+        "x_m": 0.00018640625,
+        "y_m": 0.00028640625,
+        "z_m": -2.03516769781777e-08
+      },
+      "laser_settings": [
+        {
+          "wavelength_nm": 351.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 364.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 458.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 476.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 488.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 501.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 514.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 520.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 568.0,
+          "intensity_percent": 0.0
+        },
+        {
+          "wavelength_nm": 647.0,
+          "intensity_percent": 0.0
+        }
+      ],
+      "acquisition_timestamps": [
+        "2017-01-30T07:56:07.820Z",
+        "2017-01-30T07:56:07.820Z",
+        "2017-01-30T07:56:07.821Z",
+        "2017-01-30T07:56:07.821Z",
+        "2017-01-30T07:56:07.821Z",
+        "2017-01-30T07:56:07.821Z",
+        "2017-01-30T07:56:16.096Z",
+        "2017-01-30T07:56:16.096Z",
+        "2017-01-30T07:56:16.096Z",
+        "2017-01-30T07:56:16.096Z",
+        "2017-01-30T07:56:16.097Z",
+        "2017-01-30T07:56:16.097Z"
+      ],
+      "time_points_s": [
+        0.0,
+        8.271
+      ],
+      "optical_settings": {
+        "refraction_index": 1.0,
+        "tld_mode": "",
+        "emission_wavelength_for_pinhole_airy_nm": 580.0
+      }
+    }
+  ]
+}

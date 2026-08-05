@@ -1,0 +1,27 @@
+{
+  "audit": "metadata-only production preflight",
+  "pixel_data_read": false,
+  "source_count": 1,
+  "repeat": 1,
+  "run_count": 1,
+  "success_count": 0,
+  "failure_count": 1,
+  "elapsed_seconds": 0.000277,
+  "fd_before": 4,
+  "fd_after": 4,
+  "max_rss_kib_before": 79248,
+  "max_rss_kib_after": 79248,
+  "suggested_output_collisions": [],
+  "runs": [
+    {
+      "source": "not_a_lif.lif",
+      "source_parent": "malformed",
+      "size_bytes": 72,
+      "seconds": 0.000195,
+      "status": "failed",
+      "error_type": "LifFileError",
+      "error": "not a Leica image file (id0=73696854 != 0x70 or id1=61 != 0x2A)",
+      "repeat": 1
+    }
+  ]
+}

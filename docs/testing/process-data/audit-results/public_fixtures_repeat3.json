@@ -1,0 +1,266 @@
+{
+  "audit": "metadata-only production preflight",
+  "pixel_data_read": false,
+  "source_count": 5,
+  "repeat": 3,
+  "run_count": 15,
+  "success_count": 12,
+  "failure_count": 3,
+  "elapsed_seconds": 0.654249,
+  "fd_before": 4,
+  "fd_after": 4,
+  "max_rss_kib_before": 79320,
+  "max_rss_kib_after": 137432,
+  "suggested_output_collisions": [],
+  "runs": [
+    {
+      "source": "150519_FRAP_test_ROIs_chromagreen.lif",
+      "source_parent": "ome_frap_150519",
+      "size_bytes": 9629667,
+      "seconds": 0.071127,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 8,
+      "output_unit_count": 8,
+      "plane_count": 40,
+      "estimated_uncompressed_pixel_bytes": 8028160,
+      "dimension_types": {
+        "time-lapse": 8
+      },
+      "stage_position_count": 8,
+      "suggested_directory_name": "150519_FRAP_test_ROIs_chromagreen_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "20191025 Test FRET 585. 423, 426.lif",
+      "source_parent": "ome_imagesc_30856",
+      "size_bytes": 49313199,
+      "seconds": 0.013599,
+      "status": "failed",
+      "error_type": "TypeError",
+      "error": "input must have type NumPy datetime",
+      "repeat": 1
+    },
+    {
+      "source": "PR2729_frameOrderCombinedScanTypes.lif",
+      "source_parent": "ome_pr2729",
+      "size_bytes": 227429,
+      "seconds": 0.006482,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "PR2729_frameOrderCombinedScanTypes_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "Project007.lif",
+      "source_parent": "ome_zenodo_6606445",
+      "size_bytes": 111643445,
+      "seconds": 0.031448,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 7,
+      "output_unit_count": 28,
+      "plane_count": 296,
+      "estimated_uncompressed_pixel_bytes": 110922512,
+      "dimension_types": {
+        "Z-stack": 7
+      },
+      "stage_position_count": 7,
+      "suggested_directory_name": "Project007_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "Intro.lif",
+      "source_parent": "zenodo_8252368_flim_tilescan",
+      "size_bytes": 605404016,
+      "seconds": 0.137574,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 57,
+      "output_unit_count": 94,
+      "plane_count": 1129,
+      "estimated_uncompressed_pixel_bytes": 601612032,
+      "dimension_types": {
+        "2D": 52,
+        "Z-stack": 5
+      },
+      "stage_position_count": 57,
+      "suggested_directory_name": "Intro_tiff",
+      "repeat": 1
+    },
+    {
+      "source": "150519_FRAP_test_ROIs_chromagreen.lif",
+      "source_parent": "ome_frap_150519",
+      "size_bytes": 9629667,
+      "seconds": 0.037305,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 8,
+      "output_unit_count": 8,
+      "plane_count": 40,
+      "estimated_uncompressed_pixel_bytes": 8028160,
+      "dimension_types": {
+        "time-lapse": 8
+      },
+      "stage_position_count": 8,
+      "suggested_directory_name": "150519_FRAP_test_ROIs_chromagreen_tiff",
+      "repeat": 2
+    },
+    {
+      "source": "20191025 Test FRET 585. 423, 426.lif",
+      "source_parent": "ome_imagesc_30856",
+      "size_bytes": 49313199,
+      "seconds": 0.007463,
+      "status": "failed",
+      "error_type": "TypeError",
+      "error": "input must have type NumPy datetime",
+      "repeat": 2
+    },
+    {
+      "source": "PR2729_frameOrderCombinedScanTypes.lif",
+      "source_parent": "ome_pr2729",
+      "size_bytes": 227429,
+      "seconds": 0.003907,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "PR2729_frameOrderCombinedScanTypes_tiff",
+      "repeat": 2
+    },
+    {
+      "source": "Project007.lif",
+      "source_parent": "ome_zenodo_6606445",
+      "size_bytes": 111643445,
+      "seconds": 0.021941,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 7,
+      "output_unit_count": 28,
+      "plane_count": 296,
+      "estimated_uncompressed_pixel_bytes": 110922512,
+      "dimension_types": {
+        "Z-stack": 7
+      },
+      "stage_position_count": 7,
+      "suggested_directory_name": "Project007_tiff",
+      "repeat": 2
+    },
+    {
+      "source": "Intro.lif",
+      "source_parent": "zenodo_8252368_flim_tilescan",
+      "size_bytes": 605404016,
+      "seconds": 0.088387,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 57,
+      "output_unit_count": 94,
+      "plane_count": 1129,
+      "estimated_uncompressed_pixel_bytes": 601612032,
+      "dimension_types": {
+        "2D": 52,
+        "Z-stack": 5
+      },
+      "stage_position_count": 57,
+      "suggested_directory_name": "Intro_tiff",
+      "repeat": 2
+    },
+    {
+      "source": "150519_FRAP_test_ROIs_chromagreen.lif",
+      "source_parent": "ome_frap_150519",
+      "size_bytes": 9629667,
+      "seconds": 0.034665,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 8,
+      "output_unit_count": 8,
+      "plane_count": 40,
+      "estimated_uncompressed_pixel_bytes": 8028160,
+      "dimension_types": {
+        "time-lapse": 8
+      },
+      "stage_position_count": 8,
+      "suggested_directory_name": "150519_FRAP_test_ROIs_chromagreen_tiff",
+      "repeat": 3
+    },
+    {
+      "source": "20191025 Test FRET 585. 423, 426.lif",
+      "source_parent": "ome_imagesc_30856",
+      "size_bytes": 49313199,
+      "seconds": 0.008501,
+      "status": "failed",
+      "error_type": "TypeError",
+      "error": "input must have type NumPy datetime",
+      "repeat": 3
+    },
+    {
+      "source": "PR2729_frameOrderCombinedScanTypes.lif",
+      "source_parent": "ome_pr2729",
+      "size_bytes": 227429,
+      "seconds": 0.004079,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 4,
+      "output_unit_count": 8,
+      "plane_count": 48,
+      "estimated_uncompressed_pixel_bytes": 196608,
+      "dimension_types": {
+        "ZT": 4
+      },
+      "stage_position_count": 4,
+      "suggested_directory_name": "PR2729_frameOrderCombinedScanTypes_tiff",
+      "repeat": 3
+    },
+    {
+      "source": "Project007.lif",
+      "source_parent": "ome_zenodo_6606445",
+      "size_bytes": 111643445,
+      "seconds": 0.021777,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 7,
+      "output_unit_count": 28,
+      "plane_count": 296,
+      "estimated_uncompressed_pixel_bytes": 110922512,
+      "dimension_types": {
+        "Z-stack": 7
+      },
+      "stage_position_count": 7,
+      "suggested_directory_name": "Project007_tiff",
+      "repeat": 3
+    },
+    {
+      "source": "Intro.lif",
+      "source_parent": "zenodo_8252368_flim_tilescan",
+      "size_bytes": 605404016,
+      "seconds": 0.165298,
+      "status": "ok",
+      "workflow_route": "review",
+      "series_count": 57,
+      "output_unit_count": 94,
+      "plane_count": 1129,
+      "estimated_uncompressed_pixel_bytes": 601612032,
+      "dimension_types": {
+        "2D": 52,
+        "Z-stack": 5
+      },
+      "stage_position_count": 57,
+      "suggested_directory_name": "Intro_tiff",
+      "repeat": 3
+    }
+  ]
+}

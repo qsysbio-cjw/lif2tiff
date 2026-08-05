@@ -4,3 +4,4 @@ tifffile==2026.7.14
 numpy==2.5.1
 pillow==12.3.0
 beautifulsoup4==4.15.0
+pyinstaller==6.21.0

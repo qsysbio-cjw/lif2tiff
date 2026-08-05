@@ -1,0 +1,40 @@
+{
+  "schema_name": "candida_gui_stage_calibration",
+  "schema_version": "0.1",
+  "status": "confirmed",
+  "description": "Cellvis 384-well plate calibration measured on the project Leica microscope",
+  "plate": {
+    "format": "384_well",
+    "rows": 16,
+    "columns": 24,
+    "well_shape": "square"
+  },
+  "coordinate_convention": {
+    "stage_x_increases_toward": "higher_plate_column_number",
+    "stage_y_increases_toward": "higher_plate_row_number",
+    "stage_position_represents": "fov_center"
+  },
+  "x_axis": {
+    "first_grid_index": 13,
+    "fit": {
+      "first_left_or_top_boundary_um": 64711.968,
+      "pitch_um": 4499.945,
+      "well_opening_um": 3341.921,
+      "rms_residual_um": 18.726
+    }
+  },
+  "y_axis": {
+    "first_grid_index": 5,
+    "fit": {
+      "first_left_or_top_boundary_um": 24027.490,
+      "pitch_um": 4495.687,
+      "well_opening_um": 3252.028,
+      "rms_residual_um": 6.919
+    }
+  },
+  "reference_well": "E13",
+  "plate_edge_offset_um": {
+    "x": 12130.0,
+    "y": 8990.0
+  }
+}

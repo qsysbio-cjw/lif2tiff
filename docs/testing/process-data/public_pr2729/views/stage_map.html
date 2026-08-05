@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stage Position and Plate Map</title>
+  <style>
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body { font-family: Arial, sans-serif; color: #222; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { flex: 0 0 auto; padding: 14px 18px 9px; border-bottom: 1px solid #d5dadd; background: #fff; }
+    h1 { font-size: 20px; margin: 0 0 9px; }
+    .bar { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; margin-bottom: 7px; }
+    .pill { border: 1px solid #ccc; border-radius: 4px; padding: 4px 8px; background: #f7f7f7; font-size: 13px; }
+    button { padding: 5px 9px; }
+    .map-shell { position: relative; flex: 1 1 auto; min-height: 0; background: #f6f7f7; }
+    svg { display: block; width: 100%; height: 100%; background: #f6f7f7; cursor: grab; touch-action: none; }
+    svg:active { cursor: grabbing; }
+    .plate-base { fill: #e3e7e9; stroke: #87959b; stroke-width: 2; }
+    .well { fill: #ffffff; stroke: #aab5ba; stroke-width: 1; }
+    .well.reference { fill: #f3faf8; stroke: #408475; stroke-width: 1.8; }
+    .grid-label { font-size: 11px; fill: #46545a; font-weight: 600; }
+    .row-label { font-size: 11px; fill: #46545a; font-weight: 600; }
+    .fov { fill: rgba(24, 126, 164, 0.22); stroke: #12698d; stroke-width: 1.5; }
+    .point { fill: #0e5877; stroke: white; stroke-width: 1; }
+    .point-label { font-size: 11px; fill: #111; font-weight: 600; }
+    .scale { stroke: #333; stroke-width: 3; }
+    .small { color: #555; font-size: 12px; line-height: 1.4; }
+    .description { margin: 0; }
+    #status { position: absolute; right: 12px; bottom: 8px; margin: 0; padding: 3px 6px; background: rgba(255,255,255,0.88); border: 1px solid #d5dadd; }
+    .legend { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #4b555a; }
+    .swatch { width: 14px; height: 14px; border: 1px solid #9ba8ae; display: inline-block; }
+    .swatch.well-swatch { background: white; }
+    .swatch.divider-swatch { background: #e3e7e9; }
+    .swatch.fov-swatch { background: rgba(24, 126, 164, 0.22); border-color: #12698d; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+  <h1>Stage Position and Plate Map</h1>
+  <div class="bar">
+    <span class="pill">FOVs: 4</span>
+    <span class="pill">wells: 0</span>
+    <span class="pill">FOV: 253.97 um square</span>
+    <span class="pill">pitch X/Y: NA / NA mm</span>
+    <span class="pill">anchor: NA</span>
+    <span class="pill">ZT; stage Z constant/absent</span>
+    <button id="fit-acquisition">Fit acquisition</button>
+    <button id="fit-plate">Fit plate</button>
+    <button id="reset">Reset pan/zoom</button>
+    <span class="legend"><i class="swatch well-swatch"></i>well</span>
+    <span class="legend"><i class="swatch divider-swatch"></i>divider</span>
+    <span class="legend"><i class="swatch fov-swatch"></i>FOV</span>
+  </div>
+  <p class="small description">Coordinates and FOV rectangles use physical micrometers from the LIF metadata. White openings use calibrated columns and relative Y positions; soft gray gutters represent divider material. Two-finger scroll pans; pinch or Ctrl+scroll zooms.</p>
+  </header>
+  <main class="map-shell">
+    <svg id="svg"><g id="viewport"></g></svg>
+    <p id="status" class="small"></p>
+  </main>
+  <script>
+    const points = [{"series_index": 0, "series_name": "TileScan_001 [M000]", "timestamp": "2017-01-30T07:56:07.817Z", "x_um": 53.59375, "y_um": 153.59375, "z_um": -0.0203516769781777, "x_px": 64.0, "y_px": 64.0, "pixel_size_x_um": 3.968254, "pixel_size_y_um": 3.968254}, {"series_index": 1, "series_name": "TileScan_001 [M001]", "timestamp": "2017-01-30T07:56:07.818Z", "x_um": 53.59375, "y_um": 286.40625, "z_um": -0.0203516769781777, "x_px": 64.0, "y_px": 64.0, "pixel_size_x_um": 3.968254, "pixel_size_y_um": 3.968254}, {"series_index": 2, "series_name": "TileScan_001 [M002]", "timestamp": "2017-01-30T07:56:07.819Z", "x_um": 186.40625, "y_um": 153.59375, "z_um": -0.0203516769781777, "x_px": 64.0, "y_px": 64.0, "pixel_size_x_um": 3.968254, "pixel_size_y_um": 3.968254}, {"series_index": 3, "series_name": "TileScan_001 [M003]", "timestamp": "2017-01-30T07:56:07.820Z", "x_um": 186.40625, "y_um": 286.40625, "z_um": -0.0203516769781777, "x_px": 64.0, "y_px": 64.0, "pixel_size_x_um": 3.968254, "pixel_size_y_um": 3.968254}];
+    const xGrid = [];
+    const yGrid = [];
+    const acquisitionBounds = {"minX": -2946.40625, "maxX": 3186.40625, "minY": -146.40625, "maxY": 586.40625};
+    const plateBounds = {"minX": -946.40625, "maxX": 1186.40625, "minY": -846.40625, "maxY": 1286.40625};
+    const plateGeometry = null;
+    const fovW = 253.968256;
+    const fovH = 253.968256;
+    const zSpan = 0.0;
+    const zoomSensitivity = 0.005;
+    const svg = document.getElementById("svg");
+    const viewport = document.getElementById("viewport");
+    const status = document.getElementById("status");
+    let bounds = xGrid.length && yGrid.length ? plateBounds : acquisitionBounds;
+    let scale = 1, panX = 0, panY = 0, dragging = false, lastX = 0, lastY = 0;
+    function canvasWidth() { return Math.max(svg.clientWidth, 320); }
+    function canvasHeight() { return Math.max(svg.clientHeight, 320); }
+    function baseScale() {
+      return Math.min((canvasWidth() - 100) / (bounds.maxX - bounds.minX), (canvasHeight() - 100) / (bounds.maxY - bounds.minY));
+    }
+    function offsetX() { return (canvasWidth() - (bounds.maxX - bounds.minX) * baseScale() * scale) / 2; }
+    function offsetY() { return (canvasHeight() - (bounds.maxY - bounds.minY) * baseScale() * scale) / 2; }
+    function px(x) { return offsetX() + (x - bounds.minX) * baseScale() * scale + panX; }
+    function py(y) { return offsetY() + (y - bounds.minY) * baseScale() * scale + panY; }
+    function worldX(screenX) { return bounds.minX + (screenX - offsetX() - panX) / (baseScale() * scale); }
+    function worldY(screenY) { return bounds.minY + (screenY - offsetY() - panY) / (baseScale() * scale); }
+    function esc(s) { return String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+    function formatUm(value) { return value >= 1000 ? (value / 1000).toFixed(value % 1000 === 0 ? 0 : 1) + " mm" : Math.round(value) + " um"; }
+    function scaleBar() {
+      const rawUm = 180 / (baseScale() * scale);
+      const power = Math.pow(10, Math.floor(Math.log10(rawUm)));
+      const candidates = [1, 2, 5, 10].map(value => value * power);
+      const valueUm = candidates.reduce((best, value) => Math.abs(value - rawUm) < Math.abs(best - rawUm) ? value : best);
+      return {valueUm, widthPx: valueUm * baseScale() * scale};
+    }
+    function render() {
+      const parts = [];
+      const showPointLabels = bounds !== plateBounds || scale > 2;
+      const viewMinX = worldX(0), viewMaxX = worldX(canvasWidth());
+      const viewMinY = worldY(0), viewMaxY = worldY(canvasHeight());
+      const visibleColumns = xGrid.filter(column => column.right_boundary_um >= viewMinX && column.left_boundary_um <= viewMaxX);
+      const visibleRows = yGrid.filter(row => row.bottom_boundary_um >= viewMinY && row.top_boundary_um <= viewMaxY);
+      if (plateGeometry) {
+        const plateLeft = plateGeometry.minX;
+        const plateRight = plateGeometry.maxX;
+        const plateTop = plateGeometry.minY;
+        const plateBottom = plateGeometry.maxY;
+        parts.push(`<rect class="plate-base" x="${px(plateLeft)}" y="${py(plateTop)}" width="${(plateRight - plateLeft) * baseScale() * scale}" height="${(plateBottom - plateTop) * baseScale() * scale}"><title>Plate divider material</title></rect>`);
+      }
+      for (const row of visibleRows) {
+        for (const column of visibleColumns) {
+          const referenceClass = row.label === "E" && column.column === 13 ? " reference" : "";
+          const wellName = `${row.label}${column.column}`;
+          parts.push(`<rect class="well${referenceClass}" x="${px(column.left_boundary_um)}" y="${py(row.top_boundary_um)}" width="${(column.right_boundary_um - column.left_boundary_um) * baseScale() * scale}" height="${(row.bottom_boundary_um - row.top_boundary_um) * baseScale() * scale}"><title>${wellName}${referenceClass ? "; calibration reference" : ""}</title></rect>`);
+        }
+      }
+      if (visibleRows.length) {
+        const labelY = py(visibleRows[0].top_boundary_um) - 8;
+        for (const column of visibleColumns) {
+          parts.push(`<text class="grid-label" x="${px(column.center_um)}" y="${labelY}" text-anchor="middle">C${column.column}</text>`);
+        }
+      }
+      if (visibleColumns.length) {
+        const labelX = Math.max(16, px(visibleColumns[0].left_boundary_um) - 8);
+        for (const row of visibleRows) {
+          parts.push(`<text class="row-label" x="${labelX}" y="${py(row.center_um) + 4}" text-anchor="end">${esc(row.label)}</text>`);
+        }
+      }
+      for (const point of points) {
+        const x = px(point.x_um - fovW / 2), y = py(point.y_um - fovH / 2);
+        const width = fovW * baseScale() * scale, height = fovH * baseScale() * scale;
+        const cx = px(point.x_um), cy = py(point.y_um);
+        const overlap = point.best_well ? ` | ${point.best_well}: ${(point.inside_well_fraction * 100).toFixed(1)}% of FOV inside well` : "";
+        const title = `${point.series_name} | ${point.timestamp} | x=${point.x_um.toFixed(1)} um, y=${point.y_um.toFixed(1)} um, z=${(point.z_um ?? 0).toFixed(4)} um${overlap}`;
+        parts.push(`<rect class="fov" x="${x}" y="${y}" width="${width}" height="${height}"><title>${esc(title)}</title></rect>`);
+        parts.push(`<circle class="point" cx="${cx}" cy="${cy}" r="4"><title>${esc(title)}</title></circle>`);
+        if (showPointLabels) parts.push(`<text class="point-label" x="${cx + 7}" y="${cy + 4}">${point.series_index + 1}</text>`);
+      }
+      const bar = scaleBar();
+      const scaleY = canvasHeight() - 42;
+      parts.push(`<line class="scale" x1="32" y1="${scaleY}" x2="${32 + bar.widthPx}" y2="${scaleY}"/>`);
+      parts.push(`<line class="scale" x1="32" y1="${scaleY - 7}" x2="32" y2="${scaleY + 7}"/>`);
+      parts.push(`<line class="scale" x1="${32 + bar.widthPx}" y1="${scaleY - 7}" x2="${32 + bar.widthPx}" y2="${scaleY + 7}"/>`);
+      parts.push(`<text x="32" y="${scaleY + 25}" font-size="12">scale bar ${formatUm(bar.valueUm)}</text>`);
+      viewport.innerHTML = parts.join("");
+      status.textContent = `zoom ${scale.toFixed(2)}; pan(${panX.toFixed(0)}, ${panY.toFixed(0)}); Z span ${zSpan.toFixed(6)} um`;
+    }
+    svg.addEventListener("pointerdown", event => {
+      dragging = true; lastX = event.clientX; lastY = event.clientY;
+      svg.setPointerCapture(event.pointerId);
+    });
+    svg.addEventListener("pointerup", event => { dragging = false; svg.releasePointerCapture(event.pointerId); });
+    svg.addEventListener("pointercancel", () => dragging = false);
+    svg.addEventListener("pointermove", event => {
+      if (!dragging) return;
+      panX += event.clientX - lastX; panY += event.clientY - lastY;
+      lastX = event.clientX; lastY = event.clientY; render();
+    });
+    svg.addEventListener("wheel", event => {
+      event.preventDefault();
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? canvasHeight() : 1;
+      const deltaX = event.deltaX * unit, deltaY = event.deltaY * unit;
+      if (event.ctrlKey) {
+        const rect = svg.getBoundingClientRect();
+        const cursorX = event.clientX - rect.left, cursorY = event.clientY - rect.top;
+        const focusX = worldX(cursorX), focusY = worldY(cursorY);
+        scale = Math.max(0.2, Math.min(30, scale * Math.exp(-deltaY * zoomSensitivity)));
+        panX = cursorX - offsetX() - (focusX - bounds.minX) * baseScale() * scale;
+        panY = cursorY - offsetY() - (focusY - bounds.minY) * baseScale() * scale;
+      } else {
+        panX -= deltaX;
+        panY -= deltaY;
+      }
+      render();
+    }, {passive:false});
+    function setBounds(nextBounds) { bounds = nextBounds; scale = 1; panX = 0; panY = 0; render(); }
+    document.getElementById("fit-acquisition").addEventListener("click", () => setBounds(acquisitionBounds));
+    document.getElementById("fit-plate").addEventListener("click", () => setBounds(plateBounds));
+    document.getElementById("reset").addEventListener("click", () => { scale = 1; panX = 0; panY = 0; render(); });
+    window.addEventListener("resize", render);
+    render();
+  </script>
+</body>
+</html>

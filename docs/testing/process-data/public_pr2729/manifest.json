@@ -1,0 +1,639 @@
+{
+  "schema_name": "candida_lif_conversion_project",
+  "schema_version": "0.3",
+  "software": {
+    "name": "liftool",
+    "version": "0.3.3-alpha",
+    "pixel_reader": {
+      "name": "liffile",
+      "version": "2026.7.14"
+    }
+  },
+  "project_status": "complete",
+  "created_at": "2026-08-03T16:49:38+00:00",
+  "updated_at": "2026-08-03T16:49:38+00:00",
+  "completed_at": "2026-08-03T16:49:38+00:00",
+  "source": {
+    "filename": "PR2729_frameOrderCombinedScanTypes.lif",
+    "size_bytes": 227429,
+    "file_sha256": "17994bb1bdf93dd1a34a19ed53e5a3d7f672470a8057e2998e25d2474437a052",
+    "metadata_sha256": "0a62fef18a9f080f5a5821963011ae6496a924f2debd1f469ba20078c64b6341"
+  },
+  "options": {
+    "channel_overrides": {
+      "C0": "unknown",
+      "C1": "unknown"
+    },
+    "channel_assignment_mode": "user_confirmed",
+    "review_acknowledged": true,
+    "plate_calibration_used": false,
+    "plate_calibration_sha256": null,
+    "intensity_summary": false,
+    "layout": "channel-first",
+    "two_dimensional_format": "TIFF",
+    "multidimensional_format": "OME-TIFF"
+  },
+  "channel_directories": {
+    "C0": "C00_green",
+    "C1": "C01_red"
+  },
+  "channel_resolution": {
+    "schema_name": "candida_channel_resolution",
+    "schema_version": "0.3",
+    "series_count": 4,
+    "channels": [
+      {
+        "channel_key": "C00",
+        "series_presence": 4,
+        "directory_suggestion": "C00_green",
+        "modality": "unknown",
+        "modality_variants": {
+          "unknown": 4
+        },
+        "stain_candidates": [],
+        "inferred_dye": null,
+        "confirmed_assignment": {
+          "id": "unknown",
+          "display_name": "Unknown",
+          "role": null,
+          "kind": "explicit_unknown",
+          "confidence": "confirmed",
+          "source": "user_override",
+          "evidence": [
+            "user explicitly left this channel unassigned"
+          ]
+        },
+        "confirmed_dye": null,
+        "review_status": "needs_review"
+      },
+      {
+        "channel_key": "C01",
+        "series_presence": 4,
+        "directory_suggestion": "C01_red",
+        "modality": "unknown",
+        "modality_variants": {
+          "unknown": 4
+        },
+        "stain_candidates": [],
+        "inferred_dye": null,
+        "confirmed_assignment": {
+          "id": "unknown",
+          "display_name": "Unknown",
+          "role": null,
+          "kind": "explicit_unknown",
+          "confidence": "confirmed",
+          "source": "user_override",
+          "evidence": [
+            "user explicitly left this channel unassigned"
+          ]
+        },
+        "confirmed_dye": null,
+        "review_status": "needs_review"
+      }
+    ],
+    "consistency": {
+      "status": "warning",
+      "series_count": 4,
+      "channel_keys": [
+        "C00",
+        "C01"
+      ],
+      "optical_tolerance_nm": 0.5,
+      "issues": [
+        {
+          "severity": "warning",
+          "code": "unknown_modality",
+          "channel_key": "C00",
+          "message": "C00 modality cannot be resolved"
+        },
+        {
+          "severity": "warning",
+          "code": "unknown_modality",
+          "channel_key": "C01",
+          "message": "C01 modality cannot be resolved"
+        }
+      ]
+    },
+    "workflow": {
+      "route": "review",
+      "status": "review_required",
+      "requires_acknowledgement": true,
+      "reason_codes": [
+        "unknown_modality"
+      ],
+      "summary": "Acquisition structure or optical identity varies or is incomplete.",
+      "acknowledged": true,
+      "acknowledgement_source": "explicit_override"
+    },
+    "user_assignments": {
+      "C0": "unknown",
+      "C1": "unknown"
+    },
+    "workflow_review_file": "metadata/workflow_review.json"
+  },
+  "metadata_files": {
+    "bundle": "metadata/metadata.json",
+    "series_table": "metadata/series_metadata.csv",
+    "channel_table": "metadata/channel_metadata.csv",
+    "channel_resolution": "metadata/channel_resolution.json",
+    "workflow_review": "metadata/workflow_review.json",
+    "stage_table": "metadata/stage_positions.csv",
+    "report": "metadata/metadata_report.md",
+    "source_xml": "metadata/source_metadata.xml",
+    "file_index": "metadata/files.csv",
+    "stage_map": "views/stage_map.html",
+    "conversion_log": "logs/conversion.log"
+  },
+  "series": [
+    {
+      "id": "series-0",
+      "index": 0,
+      "source_series_index": 0,
+      "mosaic_index": 0,
+      "name": "TileScan_001 [M000]",
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "status": "complete",
+      "channels": [
+        {
+          "index": 0,
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 0,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C00_green/TileScan_001 [M000].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3375
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 1,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C01_red/TileScan_001 [M000].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3089
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "series-1",
+      "index": 1,
+      "source_series_index": 0,
+      "mosaic_index": 1,
+      "name": "TileScan_001 [M001]",
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "status": "complete",
+      "channels": [
+        {
+          "index": 0,
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 0,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C00_green/TileScan_001 [M001].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3375
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 1,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C01_red/TileScan_001 [M001].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3091
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "series-2",
+      "index": 2,
+      "source_series_index": 0,
+      "mosaic_index": 2,
+      "name": "TileScan_001 [M002]",
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "status": "complete",
+      "channels": [
+        {
+          "index": 0,
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 0,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C00_green/TileScan_001 [M002].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3375
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 1,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C01_red/TileScan_001 [M002].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3089
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "series-3",
+      "index": 3,
+      "source_series_index": 0,
+      "mosaic_index": 3,
+      "name": "TileScan_001 [M003]",
+      "dimension_type": "ZT",
+      "dimensions": {
+        "x": 64,
+        "y": 64,
+        "z": 3,
+        "t": 2,
+        "channels": 2
+      },
+      "pixel_size": {
+        "x_um_per_px": 3.968254,
+        "y_um_per_px": 3.968254,
+        "z_um_per_px": 6.227615
+      },
+      "status": "complete",
+      "channels": [
+        {
+          "index": 0,
+          "physical_label": "green",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 0,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C00_green/TileScan_001 [M003].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3375
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "physical_label": "red",
+          "analysis_label": "unknown",
+          "stain": null,
+          "biological_role": "unknown",
+          "assignment_source": "user_override",
+          "assignment_confidence": "manual",
+          "identity": {
+            "modality": {
+              "value": "unknown",
+              "confidence": "unknown"
+            },
+            "inferred_dye": null,
+            "confirmed_dye": null,
+            "confirmed_assignment": {
+              "id": "unknown",
+              "kind": "explicit_unknown",
+              "source": "user_override"
+            },
+            "review_status": "confirmed",
+            "protocol_match_ids": []
+          },
+          "files": [
+            {
+              "channel_index": 1,
+              "axes": "TZYX",
+              "z_count": 3,
+              "t_count": 2,
+              "page_count": 6,
+              "container": "OME-TIFF",
+              "path": "C01_red/TileScan_001 [M003].ome.tif",
+              "shape": [
+                2,
+                3,
+                64,
+                64
+              ],
+              "dtype": "uint8",
+              "pixel_size_x_um": 3.968254,
+              "pixel_size_y_um": 3.968254,
+              "pixel_size_z_um": 6.227615,
+              "time_increment_s": 8.271,
+              "status": "complete",
+              "size_bytes": 3091
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "expanded Leica mosaic axis into 4 virtual series; mosaic_index and source_series_index are recorded"
+  ],
+  "errors": [],
+  "validation": {
+    "ok": true,
+    "checked_at": "2026-08-03T16:49:38+00:00",
+    "files_checked": 8,
+    "source_verified": null,
+    "pixel_arrays_compared": 0,
+    "pixel_planes_compared": 0,
+    "errors": [],
+    "warnings": []
+  }
+}
