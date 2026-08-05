@@ -1,18 +1,24 @@
-# Build artifacts
-build/
-dist/
-*.spec
 __pycache__/
 *.py[cod]
-
-# Output data (potentially large)
-output/
-
-# Environment
-env/
-.env/
+.pytest_cache/
+.venv*/
+.env
+.env.*
 *.egg-info/
-
-# OS
+build/
+dist/
+release/
+output/
+*.partial/
+*_tiff/
+*.lif
+*.lifext
+*.lof
+*.xlef
+*.tif
+*.tiff
+!tests/fixtures/synthetic/**/*.lif
+!tests/fixtures/public/**/*.lif
+!docs/testing/process-data/public_pr2729/**/*.tif
 .DS_Store
 Thumbs.db

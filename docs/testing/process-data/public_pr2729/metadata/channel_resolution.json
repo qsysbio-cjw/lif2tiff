@@ -1,0 +1,464 @@
+{
+  "schema_name": "candida_channel_resolution",
+  "schema_version": "0.3",
+  "series_count": 4,
+  "channels": [
+    {
+      "channel_key": "C00",
+      "series_presence": 4,
+      "directory_suggestion": "C00_green",
+      "modality": "unknown",
+      "modality_variants": {
+        "unknown": 4
+      },
+      "stain_candidates": [],
+      "inferred_dye": null,
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "confirmed_dye": null,
+      "review_status": "needs_review"
+    },
+    {
+      "channel_key": "C01",
+      "series_presence": 4,
+      "directory_suggestion": "C01_red",
+      "modality": "unknown",
+      "modality_variants": {
+        "unknown": 4
+      },
+      "stain_candidates": [],
+      "inferred_dye": null,
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "confirmed_dye": null,
+      "review_status": "needs_review"
+    }
+  ],
+  "consistency": {
+    "status": "warning",
+    "series_count": 4,
+    "channel_keys": [
+      "C00",
+      "C01"
+    ],
+    "optical_tolerance_nm": 0.5,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "unknown_modality",
+        "channel_key": "C00",
+        "message": "C00 modality cannot be resolved"
+      },
+      {
+        "severity": "warning",
+        "code": "unknown_modality",
+        "channel_key": "C01",
+        "message": "C01 modality cannot be resolved"
+      }
+    ]
+  },
+  "workflow": {
+    "route": "review",
+    "status": "review_required",
+    "requires_acknowledgement": true,
+    "reason_codes": [
+      "unknown_modality"
+    ],
+    "summary": "Acquisition structure or optical identity varies or is incomplete.",
+    "acknowledged": true,
+    "acknowledgement_source": "explicit_override"
+  },
+  "user_assignments": {
+    "C0": "unknown",
+    "C1": "unknown"
+  },
+  "series_channels": [
+    {
+      "series_index": 0,
+      "series_name": "TileScan_001 [M000]",
+      "channel_key": "C00",
+      "channel_index": 0,
+      "directory": "C00_green",
+      "display": {
+        "lut": "Green"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 0,
+      "series_name": "TileScan_001 [M000]",
+      "channel_key": "C01",
+      "channel_index": 1,
+      "directory": "C01_red",
+      "display": {
+        "lut": "Red"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 1,
+      "series_name": "TileScan_001 [M001]",
+      "channel_key": "C00",
+      "channel_index": 0,
+      "directory": "C00_green",
+      "display": {
+        "lut": "Green"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 1,
+      "series_name": "TileScan_001 [M001]",
+      "channel_key": "C01",
+      "channel_index": 1,
+      "directory": "C01_red",
+      "display": {
+        "lut": "Red"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 2,
+      "series_name": "TileScan_001 [M002]",
+      "channel_key": "C00",
+      "channel_index": 0,
+      "directory": "C00_green",
+      "display": {
+        "lut": "Green"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 2,
+      "series_name": "TileScan_001 [M002]",
+      "channel_key": "C01",
+      "channel_index": 1,
+      "directory": "C01_red",
+      "display": {
+        "lut": "Red"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 3,
+      "series_name": "TileScan_001 [M003]",
+      "channel_key": "C00",
+      "channel_index": 0,
+      "directory": "C00_green",
+      "display": {
+        "lut": "Green"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    },
+    {
+      "series_index": 3,
+      "series_name": "TileScan_001 [M003]",
+      "channel_key": "C01",
+      "channel_index": 1,
+      "directory": "C01_red",
+      "display": {
+        "lut": "Red"
+      },
+      "modality": {
+        "value": "unknown",
+        "confidence": "unknown",
+        "evidence": [
+          "insufficient detector and excitation metadata"
+        ]
+      },
+      "acquisition": {
+        "detector_name": "",
+        "detector_type": "",
+        "scan_type": "",
+        "acquisition_mode": "",
+        "dye_name": "",
+        "excitation_wavelengths_nm": [],
+        "emission_window_begin_nm": null,
+        "emission_window_end_nm": null,
+        "gain": null,
+        "offset": null,
+        "excitation_intensities_percent": []
+      },
+      "stain_candidates": [],
+      "confirmed_assignment": {
+        "id": "unknown",
+        "display_name": "Unknown",
+        "role": null,
+        "kind": "explicit_unknown",
+        "confidence": "confirmed",
+        "source": "user_override",
+        "evidence": [
+          "user explicitly left this channel unassigned"
+        ]
+      },
+      "inferred_dye": null,
+      "confirmed_dye": null,
+      "review_status": "confirmed",
+      "protocol_matches": []
+    }
+  ],
+  "workflow_review_file": "workflow_review.json"
+}

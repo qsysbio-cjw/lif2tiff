@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.1",
+  "entries": [
+    {
+      "id": "bodipy_493_503",
+      "kind": "stain",
+      "display_name": "BODIPY 493/503",
+      "aliases": ["bodipy", "bodipy fl", "bodipy 493/503", "bodipy493503"],
+      "default_role": "lipid_droplet",
+      "optical_hint": {
+        "excitation_range_nm": [450, 510],
+        "emission_range_nm": [490, 570]
+      }
+    },
+    {
+      "id": "nile_red",
+      "kind": "stain",
+      "display_name": "Nile Red",
+      "aliases": ["nile red", "nilered"],
+      "default_role": "lipid_signal",
+      "possible_roles": ["neutral_lipid_rich_signal", "broader_lipid_signal"],
+      "optical_hint": {
+        "excitation_range_nm": [450, 590],
+        "emission_range_nm": [500, 750]
+      }
+    },
+    {
+      "id": "propidium_iodide",
+      "kind": "stain",
+      "display_name": "Propidium iodide",
+      "aliases": ["propidium iodide", "pi", "pi stain", "bodipy+pi", "bodipy pi"],
+      "default_role": "membrane_integrity_nucleic_acid",
+      "optical_hint": {
+        "excitation_range_nm": [480, 570],
+        "emission_range_nm": [580, 750]
+      }
+    },
+    {
+      "id": "fm4_64",
+      "kind": "stain",
+      "display_name": "FM4-64",
+      "aliases": ["fm4-64", "fm464", "fm4 64"],
+      "default_role": "membrane_endocytic_vacuolar_pathway",
+      "optical_hint": {
+        "excitation_range_nm": [470, 580],
+        "emission_range_nm": [590, 800]
+      }
+    },
+    {
+      "id": "cmac",
+      "kind": "stain",
+      "display_name": "CMAC",
+      "aliases": ["cmac"],
+      "default_role": "vacuolar_lumen_related",
+      "optical_hint": {
+        "excitation_range_nm": [340, 430],
+        "emission_range_nm": [420, 540]
+      }
+    },
+    {
+      "id": "sytox_green",
+      "kind": "stain",
+      "display_name": "SYTOX Green",
+      "aliases": ["sytox green", "sytoxgreen"],
+      "default_role": "membrane_integrity_nucleic_acid",
+      "optical_hint": {
+        "excitation_range_nm": [450, 510],
+        "emission_range_nm": [500, 570]
+      }
+    },
+    {
+      "id": "disc3_5",
+      "kind": "stain",
+      "display_name": "DiSC3(5)",
+      "aliases": ["disc3(5)", "disc3 5", "disc35"],
+      "default_role": "membrane_potential_related"
+    },
+    {
+      "id": "er_tracker_red_probable",
+      "kind": "stain",
+      "display_name": "ER-Tracker Red (probable)",
+      "aliases": ["er tracker red", "ertracker red", "er-tracker red"],
+      "default_role": "endoplasmic_reticulum_related",
+      "optical_hint": {
+        "excitation_range_nm": [560, 610],
+        "emission_range_nm": [590, 780]
+      }
+    },
+    {
+      "id": "alexa_405",
+      "kind": "instrument_preset",
+      "display_name": "Alexa 405",
+      "aliases": ["alexa 405"]
+    },
+    {
+      "id": "alexa_488",
+      "kind": "instrument_preset",
+      "display_name": "Alexa 488",
+      "aliases": ["alexa 488"]
+    },
+    {
+      "id": "alexa_546",
+      "kind": "instrument_preset",
+      "display_name": "Alexa 546",
+      "aliases": ["alexa 546"]
+    },
+    {
+      "id": "alexa_660",
+      "kind": "instrument_preset",
+      "display_name": "Alexa 660",
+      "aliases": ["alexa 660"]
+    },
+    {
+      "id": "mcherry",
+      "kind": "fluorophore",
+      "display_name": "mCherry",
+      "aliases": ["mcherry"]
+    }
+  ]
+}

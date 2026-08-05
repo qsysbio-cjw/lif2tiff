@@ -1,0 +1,7 @@
+{
+  "schema_name": "lif2tiff_acquisition_protocol_registry",
+  "schema_version": "1.0",
+  "distribution": "public_template",
+  "interpretation": "Optional protocol matches are acquisition evidence and never proof of reagent presence.",
+  "groups": []
+}

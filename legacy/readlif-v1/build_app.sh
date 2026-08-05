@@ -1,7 +1,7 @@
 #!/bin/bash
 # Build LIF2TIFF standalone executable for Linux/Mac
-# Run from /home/dionysus-cao/0309/ with the conda env active:
-#   conda activate ./env && bash build_app.sh
+# Run from this directory with a compatible conda environment active:
+#   conda activate ENV_NAME && bash build_app.sh
 
 set -e
 cd "$(dirname "$0")"

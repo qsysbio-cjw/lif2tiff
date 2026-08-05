@@ -1,0 +1,9 @@
+series_id,series_index,series_name,dimension_type,channel_index,physical_label,analysis_label,axes,z_count,t_count,time_increment_s,page_count,container,shape,dtype,relative_path,size_bytes,status
+series-0,0,TileScan_001 [M000],ZT,0,green,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C00_green/TileScan_001 [M000].ome.tif,3375,complete
+series-0,0,TileScan_001 [M000],ZT,1,red,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C01_red/TileScan_001 [M000].ome.tif,3089,complete
+series-1,1,TileScan_001 [M001],ZT,0,green,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C00_green/TileScan_001 [M001].ome.tif,3375,complete
+series-1,1,TileScan_001 [M001],ZT,1,red,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C01_red/TileScan_001 [M001].ome.tif,3091,complete
+series-2,2,TileScan_001 [M002],ZT,0,green,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C00_green/TileScan_001 [M002].ome.tif,3375,complete
+series-2,2,TileScan_001 [M002],ZT,1,red,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C01_red/TileScan_001 [M002].ome.tif,3089,complete
+series-3,3,TileScan_001 [M003],ZT,0,green,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C00_green/TileScan_001 [M003].ome.tif,3375,complete
+series-3,3,TileScan_001 [M003],ZT,1,red,unknown,TZYX,3,2,8.271,6,OME-TIFF,2x3x64x64,uint8,C01_red/TileScan_001 [M003].ome.tif,3091,complete
