@@ -131,6 +131,23 @@ These are user needs, not yet frozen implementation decisions:
 - add day-folder orchestration only after the one-LIF workflow is stable;
 - package and acceptance-test the same shared core on Windows.
 
+### Deferred LAS X UX comparison
+
+The following ideas were reviewed against Leica LAS X LS and deliberately
+deferred. They are product candidates, not committed implementation rules.
+
+- Priority candidates: a multi-Series thumbnail overview with synchronized
+  two-to-four-view comparison, calibrated annotations/ROI measurements, and
+  restoration of the previous workspace state.
+- Later candidates: MIP/orthogonal Z views, searchable project browsing,
+  metadata comparison, richer presentation export, and histogram/ROI intensity
+  inspection.
+- Out of scope for now: microscope hardware control, autofocus, assay editors,
+  stitching, FRAP/FRET workflows, and deconvolution.
+
+Reference: [Leica LAS X LS overview](https://www.leica-microsystems.com/products/microscope-software/p/leica-las-x-ls/)
+and [LAS X LS specifications](https://www.leica-microsystems.com/products/microscope-software/p/leica-las-x-ls/specification/).
+
 ## Pending reader compatibility acceptance
 
 - Keep `liffile 2026.7.14` as the intended unified pixel reader for now.

@@ -11,6 +11,7 @@ APP = ROOT / "qt_gui" / "app.py"
 datas = [
     (str(ROOT / "resources" / "channel_registry.json"), "resources"),
     (str(ROOT / "resources" / "protocol_registry.json"), "resources"),
+    (str(ROOT / "resources" / "branding" / "lif2tiff-icon-v2.png"), "resources/branding"),
     (str(ROOT / "qt_gui" / "cellvis_384_stage_calibration.json"), "."),
 ]
 datas += collect_data_files("liffile")

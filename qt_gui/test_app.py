@@ -21,6 +21,7 @@ try:
         unconfirmed_channel_keys,
     )
     from stage_map_view import expand_plate_grid, stage_map_points
+    from acquisition_properties_view import AcquisitionPropertiesPage, acquisition_property_model
 except ModuleNotFoundError as exc:
     if exc.name == "PySide6":
         raise unittest.SkipTest("isolated PySide6 GUI dependency is unavailable") from exc
@@ -46,6 +47,50 @@ def sample_plan(route: str = "standard") -> dict:
 
 
 class QtGuiCoreTests(unittest.TestCase):
+    def test_acquisition_properties_follow_series_and_timepoint(self):
+        plan = {
+            "series": [
+                {
+                    "series_index": 2,
+                    "series_name": "Image003",
+                    "dimension_type": "time-lapse",
+                    "dimensions": {"x": 512, "y": 256, "z": 1, "t": 2},
+                    "pixel_size": {"x_um_per_px": 0.5, "y_um_per_px": 0.25},
+                    "acquisition_timestamps": ["2026-01-01T00:00:00.000Z"],
+                    "timepoint_timestamps": [
+                        "2026-01-01T00:00:00.000Z",
+                        "2026-01-01T00:01:00.000Z",
+                    ],
+                    "outputs": [
+                        {
+                            "channel_index": 0,
+                            "physical_label": "green",
+                            "source_lut": "Green",
+                            "identity": {"modality": {"value": "fluorescence"}},
+                            "acquisition_properties": {
+                                "detector_name": "HyD S 1",
+                                "sequential_setting_name": "BODIPY 493/503",
+                                "excitation_settings": [
+                                    {"wavelength_nm": 488, "intensity_percent": 5}
+                                ],
+                                "emission_window_begin_nm": 500,
+                                "emission_window_end_nm": 540,
+                            },
+                        }
+                    ],
+                }
+            ]
+        }
+
+        model = acquisition_property_model(plan, 2, 1)
+
+        self.assertEqual(model["frame_time"], "2026-01-01 08:01:00.000 (UTC+8)")
+        self.assertEqual(model["physical_size_um"], {"x": 256.0, "y": 64.0})
+        self.assertEqual(
+            model["channels"][0]["metadata_resolution_status"],
+            "resolved_sequence",
+        )
+
     def test_explicit_unknown_satisfies_channel_confirmation_gate(self):
         plan = sample_plan()
 
@@ -206,6 +251,31 @@ class QtPreviewSchedulingTests(unittest.TestCase):
         from PySide6.QtWidgets import QApplication
 
         cls.app = QApplication.instance() or QApplication([])
+
+    def test_acquisition_properties_widget_accepts_numeric_serial(self):
+        page = AcquisitionPropertiesPage()
+        try:
+            page.set_model(
+                {
+                    "series_index": 0,
+                    "series_name": "Image001",
+                    "dimension_type": "2D",
+                    "dimensions": {"x": 8, "y": 8, "z": 1, "t": 1},
+                    "pixel_size": {"x_um_per_px": 0.2, "y_um_per_px": 0.2},
+                    "physical_size_um": {"x": 1.6, "y": 1.6},
+                    "series_start_time": "Unavailable",
+                    "frame_time": "Unavailable",
+                    "objective": {},
+                    "confocal_settings": {},
+                    "microscope": {"serial": 12345},
+                    "optical_settings": {},
+                    "channels": [],
+                }
+            )
+            self.app.processEvents()
+            self.assertGreaterEqual(page.layout.count(), 7)
+        finally:
+            page.close()
 
     def test_scrubbing_displays_completed_intermediate_then_requests_latest(self):
         window = QtWorkbench()

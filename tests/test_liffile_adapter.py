@@ -46,6 +46,7 @@ class LiffileAdapterTests(unittest.TestCase):
             self.assertTrue(all(image.dims.z == 3 for image in lif.images))
             self.assertTrue(all(image.channels == 2 for image in lif.images))
             self.assertTrue(all(len(image.acquisition_timestamps) == 12 for image in lif.images))
+            self.assertTrue(all(len(image.timepoint_timestamps) == 2 for image in lif.images))
 
             plane = lif.images[0].get_frame(t=0, z=0, c=0)
             self.assertEqual(

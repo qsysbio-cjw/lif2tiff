@@ -151,6 +151,21 @@ application validates the project and reads TIFF planes only through relative
 manifest paths, preserving the same series, channel, Z/T, contrast, overlay,
 and stage-map interactions.
 
+## Recorded Acquisition Properties
+
+The acquisition-properties workspace follows the selected Series and current
+time point. It presents the recorded acquisition timestamp, dimensions,
+calibrated pixel and field size, objective and scan settings, and a separate
+card for every channel. Channel cards retain excitation wavelength and power,
+the recorded emission window, detector, gain/offset, LUT, bit depth, and
+sequential setting. Metadata conflicts, special acquisitions, and incomplete
+records are shown explicitly instead of silently guessed.
+
+The same fields are written into portable project metadata and restored when a
+converted project is reopened. Leica FILETIME values are UTC instants; this
+deployment displays them in the instrument timezone UTC+8. A configurable
+display timezone is deferred for installations in other regions.
+
 ## Presentation Export
 
 The `Export` workspace is separate from quantitative conversion. It can export
