@@ -10,6 +10,18 @@ import liffile
 import numpy as np
 
 
+RECORDED_TIMEZONE_OFFSET = "+08:00"
+
+
+def _recorded_datetime_text(value) -> str:
+    """Convert Leica's UTC FILETIME instant to the instrument's UTC+8 timezone."""
+    local_value = value + np.timedelta64(8, "h")
+    text = np.datetime_as_string(local_value, unit="ms")
+    if text.endswith("Z"):
+        text = text[:-1]
+    return f"{text}{RECORDED_TIMEZONE_OFFSET}"
+
+
 def _first_mapping(value) -> dict:
     if isinstance(value, dict):
         return value
@@ -23,6 +35,7 @@ class LifImageAdapter:
 
     def __init__(self, image, source_series_index: int, mosaic_index: int | None):
         self._image = image
+        self.xml_element = getattr(image, "xml_element", None)
         self.source_series_index = source_series_index
         self.mosaic_index = mosaic_index
         self.xml_name = image.name
@@ -50,6 +63,7 @@ class LifImageAdapter:
             float(value) for value in image.coords.get("T", np.array([], dtype=float))
         ]
         self.acquisition_timestamps = self._timestamps()
+        self.timepoint_timestamps = self._timepoint_timestamps()
 
         hardware = _first_mapping(image.attrs.get("HardwareSetting"))
         settings = _first_mapping(hardware.get("ATLConfocalSettingDefinition"))
@@ -86,8 +100,32 @@ class LifImageAdapter:
             values = values[selection]
         result = []
         for value in values.reshape(-1):
-            text = np.datetime_as_string(value, unit="ms")
-            result.append(text if text.endswith("Z") else f"{text}Z")
+            result.append(_recorded_datetime_text(value))
+        return result
+
+    def _timepoint_timestamps(self) -> list[str]:
+        """Return the first recorded plane timestamp for each T coordinate."""
+        values = np.asarray(self._image.timestamps)
+        if not values.size or values.dtype.kind != "M":
+            return []
+        plane_axes = [axis for axis in self._image.dims if axis not in {"Y", "X"}]
+        plane_shape = tuple(int(self._image.sizes[axis]) for axis in plane_axes)
+        if values.size != int(np.prod(plane_shape)):
+            return []
+        values = values.reshape(plane_shape)
+        if self.mosaic_index is not None and "M" in plane_axes:
+            mosaic_axis = plane_axes.index("M")
+            values = np.take(values, self.mosaic_index, axis=mosaic_axis)
+            plane_axes.pop(mosaic_axis)
+        if "T" not in plane_axes:
+            values = values.reshape(-1)[:1]
+        else:
+            time_axis = plane_axes.index("T")
+            values = np.moveaxis(values, time_axis, 0)
+            values = values.reshape(values.shape[0], -1)[:, 0]
+        result = []
+        for value in values:
+            result.append(_recorded_datetime_text(value))
         return result
 
     def _pixels_per_um(self, axis: str) -> float:

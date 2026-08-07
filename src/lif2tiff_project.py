@@ -136,7 +136,8 @@ def _parse_timestamps(ts_text):
             filetime = int(token, 16)
             timestamp_s = (filetime - EPOCH_DIFF) / 1e7
             dt = datetime.datetime.fromtimestamp(timestamp_s, datetime.UTC)
-            result.append(dt.strftime("%Y-%m-%dT%H:%M:%SZ"))
+            local = dt.astimezone(datetime.timezone(datetime.timedelta(hours=8)))
+            result.append(local.isoformat(timespec="seconds"))
         except (ValueError, OSError, OverflowError):
             pass
     return result
@@ -150,6 +151,21 @@ def _float_or_none(value):
 
 
 def _channel_properties(image_elem):
+    descriptions = list(image_elem.iter("ChannelDescription"))
+    description_groups = []
+    for description in descriptions:
+        row = {}
+        for prop in description.findall("ChannelProperty"):
+            key_elem = prop.find("Key")
+            value_elem = prop.find("Value")
+            if key_elem is not None and value_elem is not None:
+                row[key_elem.text] = value_elem.text
+        if row:
+            description_groups.append(row)
+    if description_groups:
+        return description_groups
+
+    # Compatibility fallback for older synthetic/minimal metadata fixtures.
     groups = []
     current = {}
     for prop in image_elem.iter("ChannelProperty"):
@@ -209,12 +225,41 @@ def _detector_from_setting(setting, detector_name):
         "name": detector_name,
         "type": detector.get("Type"),
         "scan_type": detector.get("ScanType"),
+        "is_active": detector.get("IsActive"),
+        "is_enabled": detector.get("IsEnabled"),
         "gain": _float_or_none(detector.get("Gain")),
         "offset": _float_or_none(detector.get("Offset")),
         "detection_range_begin_nm": detector.get("DetectionRangeBegin"),
         "detection_range_end_nm": detector.get("DetectionRangeEnd"),
         "acquisition_mode": detector.get("AcquisitionModeName"),
     }
+
+
+def _channel_metadata_status(
+    setting,
+    detector_info,
+    emission_begin,
+    emission_end,
+    beam_route,
+    setting_source,
+):
+    """Describe how confidently one output channel was resolved to hardware metadata."""
+    if setting_source == "recorded_conflict" or not detector_info:
+        return "recorded_conflict" if setting_source == "recorded_conflict" else "missing"
+    if detector_info.get("is_active") not in {None, "1"}:
+        return "recorded_conflict"
+    if detector_info.get("is_enabled") not in {None, "1"}:
+        return "recorded_conflict"
+    try:
+        detector_position = int(str(beam_route).rsplit(";", 1)[-1])
+    except (TypeError, ValueError):
+        detector_position = None
+    fluorescence = detector_position is None or detector_position > 0
+    if fluorescence and (emission_begin is None or emission_end is None):
+        if setting is not None and setting.get("IsSTEDActive") == "1":
+            return "special_acquisition"
+        return "missing"
+    return setting_source
 
 
 def _emission_window(setting, beam_route):
@@ -239,7 +284,7 @@ def _emission_window(setting, beam_route):
     )
 
 
-def extract_xml_metadata(xml_root, series_name):
+def extract_xml_metadata(xml_root, series_name, image_element=None):
     """Extract detailed metadata from LIF XML for a specific series."""
     result = {
         "laser_settings": [],
@@ -247,7 +292,17 @@ def extract_xml_metadata(xml_root, series_name):
         "channel_scaling": [],
     }
 
-    for image_elem in xml_root.iter("Element"):
+    candidates = [image_element] if image_element is not None else [
+        item
+        for item in xml_root.iter("Element")
+        if item.get("Name", "") == series_name and item.find("Data/Image") is not None
+    ]
+    if not candidates:
+        candidates = [
+            item for item in xml_root.iter("Element") if item.get("Name", "") == series_name
+        ]
+
+    for image_elem in candidates:
         name_attr = image_elem.get("Name", "")
         if name_attr != series_name:
             continue
@@ -274,14 +329,26 @@ def extract_xml_metadata(xml_root, series_name):
                 sequential_index = int(ch_prop.get("SequentialSettingIndex", "0"))
             except ValueError:
                 sequential_index = 0
-            setting = (
-                sequential_settings[sequential_index]
-                if 0 <= sequential_index < len(sequential_settings)
-                else base_setting
-            )
+            if sequential_settings and 0 <= sequential_index < len(sequential_settings):
+                setting = sequential_settings[sequential_index]
+                setting_source = "resolved_sequence"
+            elif sequential_settings:
+                setting = base_setting
+                setting_source = "recorded_conflict"
+            else:
+                setting = base_setting
+                setting_source = "current_fallback"
             det_info = _detector_from_setting(setting, det_name)
             excitation = _active_lasers(setting)
             emission_begin, emission_end = _emission_window(setting, ch_prop.get("BeamRoute"))
+            metadata_status = _channel_metadata_status(
+                setting,
+                det_info,
+                emission_begin,
+                emission_end,
+                ch_prop.get("BeamRoute"),
+                setting_source,
+            )
             result["channel_detector_map"].append({
                 "detector_name": det_name,
                 "dye_name": ch_prop.get("DyeName") or None,
@@ -289,6 +356,8 @@ def extract_xml_metadata(xml_root, series_name):
                 "sequential_setting_name": setting.get("UserSettingName") if setting is not None else None,
                 "detector_type": det_info.get("type"),
                 "scan_type": det_info.get("scan_type"),
+                "detector_is_active": det_info.get("is_active"),
+                "detector_is_enabled": det_info.get("is_enabled"),
                 "gain": det_info.get("gain"),
                 "offset": det_info.get("offset"),
                 "detection_range_begin_nm": det_info.get("detection_range_begin_nm"),
@@ -297,6 +366,8 @@ def extract_xml_metadata(xml_root, series_name):
                 "excitation_settings": excitation,
                 "emission_window_begin_nm": emission_begin,
                 "emission_window_end_nm": emission_end,
+                "metadata_resolution_status": metadata_status,
+                "metadata_setting_source": setting_source,
             })
 
         # Channel descriptions — collect in order (sorted by BytesInc)
@@ -366,7 +437,11 @@ def extract_metadata(image, xml_root, source_file, series_index, channel_overrid
     pinhole_um = float(pinhole_m) * 1e6 if pinhole_m else None
 
     # XML metadata (needed for LUT names before building channel_info)
-    xml_meta = extract_xml_metadata(xml_root, getattr(image, "xml_name", image.name))
+    xml_meta = extract_xml_metadata(
+        xml_root,
+        getattr(image, "xml_name", image.name),
+        getattr(image, "xml_element", None),
+    )
 
     # Extract LUT names from channel descriptions (already sorted by BytesInc in extract_xml_metadata)
     lut_names = [ch.get("LUTName", "") for ch in xml_meta.get("channel_descriptions", [])]
@@ -435,6 +510,8 @@ def extract_metadata(image, xml_root, source_file, series_index, channel_overrid
             "detector_name": det.get("detector_name"),
             "detector_type": det.get("detector_type"),
             "scan_type": det.get("scan_type"),
+            "detector_is_active": det.get("detector_is_active"),
+            "detector_is_enabled": det.get("detector_is_enabled"),
             "gain": det.get("gain"),
             "offset": det.get("offset"),
             "detection_range_begin_nm": det.get("detection_range_begin_nm"),
@@ -446,6 +523,8 @@ def extract_metadata(image, xml_root, source_file, series_index, channel_overrid
             "excitation_settings": det.get("excitation_settings") or [],
             "emission_window_begin_nm": det.get("emission_window_begin_nm"),
             "emission_window_end_nm": det.get("emission_window_end_nm"),
+            "metadata_resolution_status": det.get("metadata_resolution_status", "missing"),
+            "metadata_setting_source": det.get("metadata_setting_source"),
         })
 
     metadata = {
@@ -501,6 +580,7 @@ def extract_metadata(image, xml_root, source_file, series_index, channel_overrid
             "acquisition_timestamps",
             xml_meta.get("acquisition_timestamps", []),
         ),
+        "timepoint_timestamps": getattr(image, "timepoint_timestamps", []),
         "time_points_s": getattr(image, "time_points_s", []),
         "optical_settings": {
             "refraction_index": float(settings["RefractionIndex"]) if "RefractionIndex" in settings else None,

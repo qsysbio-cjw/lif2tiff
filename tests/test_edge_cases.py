@@ -277,6 +277,8 @@ def test_windows_specs_are_syntactically_valid_and_bundle_runtime_data():
         assert resource in gui_spec
         assert resource in cli_spec
     assert "cellvis_384_stage_calibration.json" in gui_spec
+    assert "lif2tiff-icon-v2.png" in gui_spec
+    assert "lif2tiff-icon-v2.ico" in gui_spec
     assert "COLLECT(" in gui_spec
     assert 'console=True' in cli_spec
 

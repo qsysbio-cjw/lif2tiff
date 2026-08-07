@@ -44,6 +44,36 @@ class ChannelAssignmentTests(unittest.TestCase):
 
 
 class LeicaSequentialMetadataTests(unittest.TestCase):
+    def test_exact_series_element_does_not_collect_sibling_channels(self):
+        root = ET.fromstring(
+            """
+            <Root><Element Name="Container">
+              <Element Name="Image001"><Data><Image /></Data>
+                <ChannelDescription><ChannelProperty><Key>ChannelGroup</Key><Value>0</Value></ChannelProperty>
+                  <ChannelProperty><Key>BeamRoute</Key><Value>40;1</Value></ChannelProperty>
+                  <ChannelProperty><Key>DetectorName</Key><Value>HyD S 1</Value></ChannelProperty>
+                </ChannelDescription>
+                <Attachment Name="HardwareSetting"><ATLConfocalSettingDefinition>
+                  <Detector Name="HyD S 1" Gain="30" IsActive="1" IsEnabled="1" />
+                  <MultiBand SpectralPosition="0" TargetWaveLengthBegin="500" TargetWaveLengthEnd="540" />
+                </ATLConfocalSettingDefinition></Attachment>
+              </Element>
+              <Element Name="Image002"><Data><Image /></Data>
+                <ChannelDescription><ChannelProperty><Key>ChannelGroup</Key><Value>0</Value></ChannelProperty>
+                  <ChannelProperty><Key>DetectorName</Key><Value>HyD S 2</Value></ChannelProperty>
+                </ChannelDescription>
+              </Element>
+            </Element></Root>
+            """
+        )
+        image = next(item for item in root.iter("Element") if item.get("Name") == "Image001")
+
+        metadata = extract_xml_metadata(root, "Image001", image)
+
+        self.assertEqual(len(metadata["channel_detector_map"]), 1)
+        self.assertEqual(metadata["channel_detector_map"][0]["detector_name"], "HyD S 1")
+        self.assertEqual(metadata["channel_detector_map"][0]["gain"], 30.0)
+
     def test_channel_uses_its_sequential_detector_laser_and_band(self):
         root = ET.fromstring(
             """
@@ -81,11 +111,35 @@ class LeicaSequentialMetadataTests(unittest.TestCase):
         green, red = metadata["channel_detector_map"]
 
         self.assertEqual(green["gain"], 52.25)
+        self.assertEqual(green["metadata_resolution_status"], "resolved_sequence")
         self.assertEqual(green["excitation_settings"][0]["wavelength_nm"], 491.0)
         self.assertEqual(green["emission_window_begin_nm"], 501.5)
         self.assertEqual(red["gain"], 44.1)
         self.assertEqual(red["excitation_settings"][0]["wavelength_nm"], 553.0)
         self.assertEqual(red["emission_window_end_nm"], 732.0)
+
+    def test_disabled_recorded_detector_is_exposed_as_a_conflict(self):
+        root = ET.fromstring(
+            """
+            <Root><Element Name="Image001"><Attachment Name="HardwareSetting">
+              <ATLConfocalSettingDefinition UserSettingName="Current">
+                <Detector Name="Trans PMT" Gain="40" Offset="1"
+                  IsActive="1" IsEnabled="0" />
+              </ATLConfocalSettingDefinition>
+              <ChannelProperty><Key>ChannelGroup</Key><Value>0</Value></ChannelProperty>
+              <ChannelProperty><Key>BeamRoute</Key><Value>0;0</Value></ChannelProperty>
+              <ChannelProperty><Key>DetectorName</Key><Value>Trans PMT</Value></ChannelProperty>
+              <ChannelProperty><Key>SequentialSettingIndex</Key><Value>0</Value></ChannelProperty>
+            </Attachment></Element></Root>
+            """
+        )
+
+        metadata = extract_xml_metadata(root, "Image001")
+        channel = metadata["channel_detector_map"][0]
+
+        self.assertEqual(channel["metadata_setting_source"], "current_fallback")
+        self.assertEqual(channel["metadata_resolution_status"], "recorded_conflict")
+        self.assertEqual(channel["detector_is_enabled"], "0")
 
     def test_channel_value_range_and_source_display_scaling_are_preserved(self):
         root = ET.fromstring(

@@ -12,7 +12,7 @@ import threading
 from pathlib import Path
 
 from PySide6.QtCore import QObject, QSignalBlocker, Qt, QTimer, Signal
-from PySide6.QtGui import QDragEnterEvent, QDropEvent
+from PySide6.QtGui import QDragEnterEvent, QDropEvent, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -76,9 +76,14 @@ from tiff_project_adapter import (  # noqa: E402
 )
 from viewer import ViewerWindow  # noqa: E402
 from stage_map_view import StageMapPage, load_stage_calibration, stage_map_points  # noqa: E402
+from acquisition_properties_view import (  # noqa: E402
+    AcquisitionPropertiesPage,
+    acquisition_property_model,
+)
 
 
 APP_NAME = "LIF2TIFF Qt Workbench"
+APP_ICON = ROOT / "resources" / "branding" / "lif2tiff-icon-v2.png"
 
 
 def discover_lifs(inputs: list[Path]) -> list[Path]:
@@ -403,6 +408,8 @@ class QtWorkbench(ViewerWindow):
     def __init__(self) -> None:
         super().__init__(None)
         self.setWindowTitle(f"{APP_NAME} {SOFTWARE_VERSION}")
+        if APP_ICON.is_file():
+            self.setWindowIcon(QIcon(str(APP_ICON)))
         self.resize(1560, 900)
         self.path_label.setSizePolicy(
             QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred
@@ -427,7 +434,12 @@ class QtWorkbench(ViewerWindow):
         self.plate_calibration = load_stage_calibration()
         self.stage_map_page = StageMapPage()
         self.view_tabs.addTab(self.stage_map_page, "Stage Map")
+        self.acquisition_properties_page = AcquisitionPropertiesPage()
+        self.view_tabs.addTab(
+            self.acquisition_properties_page, "Recorded Acquisition Properties"
+        )
         self.view_tabs.currentChanged.connect(self._viewer_tab_changed)
+        self.time_slider.valueChanged.connect(self._refresh_acquisition_properties)
         self.bridge = ConversionBridge()
         self.bridge.inputs_ready.connect(self._add_discovered_inputs)
         self.bridge.plan_ready.connect(self._plan_ready)
@@ -456,6 +468,18 @@ class QtWorkbench(ViewerWindow):
         self.tools_tabs.setTabEnabled(self.export_tools_index, image_active)
         if not image_active and self.tools_tabs.currentIndex() == self.display_tools_index:
             self.tools_tabs.setCurrentIndex(self.convert_tools_index)
+
+    def _refresh_acquisition_properties(self, _value: int | None = None) -> None:
+        if self.plan is None or self.series_combo.currentIndex() < 0:
+            self.acquisition_properties_page.clear()
+            return
+        self.acquisition_properties_page.set_model(
+            acquisition_property_model(
+                self.plan,
+                self.current_series_index(),
+                self.time_slider.value(),
+            )
+        )
 
     def _build_queue_dock(self) -> None:
         dock = QDockWidget("Input queue", self)
@@ -934,6 +958,7 @@ class QtWorkbench(ViewerWindow):
         if hasattr(self, "series_table") and index >= 0 and index < self.series_table.rowCount():
             with QSignalBlocker(self.series_table):
                 self.series_table.selectRow(index)
+        self._refresh_acquisition_properties()
 
     def _plan_failed(self, payload) -> None:
         token, source, exc = payload
@@ -1801,6 +1826,7 @@ class QtWorkbench(ViewerWindow):
         self.statusBar().showMessage("Ready")
         self.tools_tabs.setTabEnabled(self.convert_tools_index, True)
         self._refresh_stage_map()
+        self.acquisition_properties_page.clear()
 
     def dragEnterEvent(self, event: QDragEnterEvent) -> None:  # noqa: N802 - Qt API
         if event.mimeData().hasUrls():
@@ -1865,6 +1891,8 @@ def main() -> int:
     app = QApplication(sys.argv[:1])
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(SOFTWARE_VERSION)
+    if APP_ICON.is_file():
+        app.setWindowIcon(QIcon(str(APP_ICON)))
     window = QtWorkbench()
     window.show()
     if args.inputs:

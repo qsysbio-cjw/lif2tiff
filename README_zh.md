@@ -20,6 +20,7 @@ GitHub Releases 提供 Linux 和 Windows 两套原生程序。每套程序同时
 - 转换前预览 2D、Z-stack、time-lapse 和 ZT acquisition；
 - 独立显示通道、使用源 LUT、调节对比度、缩放和平移；
 - 播放时间序列并查看交互式 stage/plate map；
+- 按 Series 查看拍摄时间、物镜、扫描设置及各通道激光器、探测器、gain/offset 等原始采集属性；
 - 根据采集 metadata 推断通道身份，并要求用户明确确认；
 - 可从用户配置目录加载项目私有 protocol registry，公开程序不内置内部采集参数；
 - 对多个 LIF 执行 Dry Run、空间预估、转换、取消与断点恢复；
@@ -50,6 +51,9 @@ Windows PowerShell：
 - manifest 使用相对路径，不保存本机绝对路径；
 - 推断的染料身份与用户确认结果分开记录；
 - 异常 acquisition 必须进入 review workflow。
+
+Leica FILETIME 按 UTC 时间点解析，并按当前仪器部署时区 UTC+8 显示。面向其他地区
+仪器时，显示时区需要在后续版本中改为可配置项。
 
 仓库保留自动化测试、synthetic fixtures、公开 fixture 的精简过程结果、测试报告与
 GUI 截图，但不上传原始实验 LIF 或大型 TIFF。旧版代码保存在

@@ -87,6 +87,9 @@ def build_project(root: Path) -> Path:
                     "physical_label": label,
                     "lut": lut,
                     "identity": identity,
+                    "detector_name": "Trans PMT" if channel_index == 0 else "HyD S 1",
+                    "gain": 40.0 if channel_index == 0 else 120.0,
+                    "metadata_resolution_status": "resolved_sequence",
                     "source_display_settings": {
                         "value_min": 0.0,
                         "value_max": 65535.0,
@@ -113,6 +116,12 @@ def build_project(root: Path) -> Path:
                 "dimensions": dimensions,
                 "channel_info": channel_info,
                 "stage_position": {"x_m": 0.01 + series_index, "y_m": 0.02},
+                "objective": {"name": "HC PL APO CS2 63x/1.40 OIL"},
+                "acquisition_timestamps": ["2026-07-07T15:24:02.351+08:00"],
+                "timepoint_timestamps": [
+                    f"2026-07-07T15:{24 + index:02d}:02.351+08:00"
+                    for index in range(t_count)
+                ],
                 "time_points_s": [30.0 * index for index in range(t_count)],
             }
         )
@@ -141,6 +150,15 @@ class ConvertedProjectAdapterTests(unittest.TestCase):
             frame = adapter.images[0].get_frame(z=1, t=1, c=1)
             self.assertTrue(np.all(frame == 103))
             self.assertEqual(adapter.images[0].settings["CycleTime"], 30.0)
+            first_series = adapter.plan["series"][0]
+            self.assertEqual(
+                first_series["objective"]["name"], "HC PL APO CS2 63x/1.40 OIL"
+            )
+            self.assertEqual(len(first_series["timepoint_timestamps"]), 2)
+            self.assertEqual(
+                first_series["outputs"][1]["acquisition_properties"]["detector_name"],
+                "HyD S 1",
+            )
             handle = next(iter(adapter._handle_cache._files.values()))
             self.assertFalse(handle.filehandle.closed)
             adapter.close()

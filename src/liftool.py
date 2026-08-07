@@ -913,6 +913,30 @@ def build_conversion_plan(
                             "source_display_settings"
                         ),
                         "identity": channel.get("identity"),
+                        "acquisition_properties": {
+                            key: channel.get(key)
+                            for key in (
+                                "detector_name",
+                                "detector_type",
+                                "scan_type",
+                                "detector_is_active",
+                                "detector_is_enabled",
+                                "gain",
+                                "offset",
+                                "detection_range_begin_nm",
+                                "detection_range_end_nm",
+                                "acquisition_mode",
+                                "dye_name",
+                                "sequential_index",
+                                "sequential_setting_name",
+                                "excitation_settings",
+                                "emission_window_begin_nm",
+                                "emission_window_end_nm",
+                                "metadata_resolution_status",
+                                "metadata_setting_source",
+                                "bit_depth",
+                            )
+                        },
                         "file": spec,
                     }
                 )
@@ -924,6 +948,13 @@ def build_conversion_plan(
                     "dimensions": item["dimensions"],
                     "pixel_size": item["pixel_size"],
                     "stage_position": item["stage_position"],
+                    "objective": item.get("objective") or {},
+                    "confocal_settings": item.get("confocal_settings") or {},
+                    "microscope": item.get("microscope") or {},
+                    "optical_settings": item.get("optical_settings") or {},
+                    "acquisition_timestamps": item.get("acquisition_timestamps") or [],
+                    "timepoint_timestamps": item.get("timepoint_timestamps") or [],
+                    "time_points_s": item.get("time_points_s") or [],
                     "outputs": outputs,
                 }
             )

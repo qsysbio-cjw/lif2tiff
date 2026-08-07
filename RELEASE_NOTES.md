@@ -10,6 +10,10 @@ prototype. It uses liffile for pixel access and PySide6 for the desktop GUI.
 - Multi-LIF queue, folder discovery, batch Dry Run, and storage preflight.
 - Per-channel display controls, source LUT support, zoom, pan, and playback.
 - Interactive acquisition and calibrated 384-well stage maps.
+- A per-Series recorded acquisition properties view with channel-specific
+  excitation, emission, detector, gain, offset, LUT, and metadata-status fields.
+- Leica FILETIME timestamps converted from UTC to the instrument's UTC+8
+  display timezone, including current-frame times for time-lapse acquisitions.
 - Explicit channel confirmation with separate inferred and confirmed identity.
 - Optional external protocol registry; the public package includes only a
   non-sensitive empty template.
@@ -18,7 +22,7 @@ prototype. It uses liffile for pixel access and PySide6 for the desktop GUI.
 
 ## Validation evidence
 
-- 116 automated tests passed with one documented expected failure.
+- 120 automated tests passed with one documented expected failure.
 - Public Z and ZT fixtures were converted and validated.
 - A real 408-plane Candida ZT acquisition was validated exactly.
 - A 4179-plane conversion passed cancellation, cleanup, and resume testing.

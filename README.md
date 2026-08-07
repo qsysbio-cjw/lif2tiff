@@ -26,6 +26,8 @@ is required for downloaded packages.
 - Inspect source LUT colors and per-channel display ranges without modifying
   the LIF.
 - Navigate, zoom, pan, play time series, and inspect interactive stage maps.
+- Inspect per-Series recorded acquisition properties, including timestamps,
+  objective, scan settings, and channel-specific laser/detector parameters.
 - Infer channel identity from acquisition metadata and require explicit user
   confirmation before conversion.
 - Load an optional project-specific protocol registry from the user's config
@@ -105,6 +107,10 @@ See [testing documentation](docs/testing/README.md) and
 LIF2TIFF is not a replacement for Leica LAS X acquisition control or advanced
 3D volume rendering. Channel identity is an acquisition-parameter inference,
 not proof of the dye physically added to a sample.
+
+Recorded Leica FILETIME values are interpreted as UTC instants and displayed
+in the current instrument deployment timezone (UTC+8). Configurable display
+timezones remain future work for deployments in other regions.
 
 ## License
 

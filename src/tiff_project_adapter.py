@@ -213,6 +213,30 @@ def load_tiff_project_plan(path: Path) -> tuple[dict, dict]:
                 "source_lut": detail.get("lut"),
                 "source_display_settings": detail.get("source_display_settings") or {},
                 "identity": channel.get("identity") or detail.get("identity") or {},
+                "acquisition_properties": {
+                    key: detail.get(key)
+                    for key in (
+                        "detector_name",
+                        "detector_type",
+                        "scan_type",
+                        "detector_is_active",
+                        "detector_is_enabled",
+                        "gain",
+                        "offset",
+                        "detection_range_begin_nm",
+                        "detection_range_end_nm",
+                        "acquisition_mode",
+                        "dye_name",
+                        "sequential_index",
+                        "sequential_setting_name",
+                        "excitation_settings",
+                        "emission_window_begin_nm",
+                        "emission_window_end_nm",
+                        "metadata_resolution_status",
+                        "metadata_setting_source",
+                        "bit_depth",
+                    )
+                },
                 "file": record,
             }
             outputs.append(output)
@@ -225,6 +249,12 @@ def load_tiff_project_plan(path: Path) -> tuple[dict, dict]:
                 "dimensions": stored.get("dimensions") or detailed.get("dimensions"),
                 "pixel_size": stored.get("pixel_size") or detailed.get("pixel_size") or {},
                 "stage_position": detailed.get("stage_position") or {},
+                "objective": detailed.get("objective") or {},
+                "confocal_settings": detailed.get("confocal_settings") or {},
+                "microscope": detailed.get("microscope") or {},
+                "optical_settings": detailed.get("optical_settings") or {},
+                "acquisition_timestamps": detailed.get("acquisition_timestamps") or [],
+                "timepoint_timestamps": detailed.get("timepoint_timestamps") or [],
                 "time_points_s": detailed.get("time_points_s") or [],
                 "outputs": outputs,
             }
