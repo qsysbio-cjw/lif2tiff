@@ -22,6 +22,18 @@ def _recorded_datetime_text(value) -> str:
     return f"{text}{RECORDED_TIMEZONE_OFFSET}"
 
 
+def _recorded_text_or_raw(value) -> str:
+    """Apply the recorded timezone whenever the value is a usable instant.
+
+    Timestamp arrays that do not match the plane layout still hold real
+    instants, so they must not fall back to naive UTC text: a bare value
+    reads as eight hours earlier than the acquisition actually happened.
+    """
+    if isinstance(value, np.datetime64) and not np.isnat(value):
+        return _recorded_datetime_text(value)
+    return str(value)
+
+
 def _first_mapping(value) -> dict:
     if isinstance(value, dict):
         return value
@@ -86,11 +98,11 @@ class LifImageAdapter:
             flattened = values.reshape(-1)
             if all(value is None for value in flattened):
                 return []
-            return [str(value) for value in flattened]
+            return [_recorded_text_or_raw(value) for value in flattened]
         plane_axes = [axis for axis in self._image.dims if axis not in {"Y", "X"}]
         plane_shape = tuple(int(self._image.sizes[axis]) for axis in plane_axes)
         if values.size != int(np.prod(plane_shape)):
-            return [str(value) for value in values.reshape(-1)]
+            return [_recorded_text_or_raw(value) for value in values.reshape(-1)]
         values = values.reshape(plane_shape)
         if self.mosaic_index is not None:
             selection = tuple(
@@ -100,7 +112,7 @@ class LifImageAdapter:
             values = values[selection]
         result = []
         for value in values.reshape(-1):
-            result.append(_recorded_datetime_text(value))
+            result.append(_recorded_text_or_raw(value))
         return result
 
     def _timepoint_timestamps(self) -> list[str]:
@@ -125,7 +137,7 @@ class LifImageAdapter:
             values = values.reshape(values.shape[0], -1)[:, 0]
         result = []
         for value in values:
-            result.append(_recorded_datetime_text(value))
+            result.append(_recorded_text_or_raw(value))
         return result
 
     def _pixels_per_um(self, axis: str) -> float:
